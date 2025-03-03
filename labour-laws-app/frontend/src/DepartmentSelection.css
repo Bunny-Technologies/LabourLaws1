@@ -1,0 +1,115 @@
+/* Government Page Layout */
+.govt-page {
+  font-family: "Georgia", serif;
+  background: linear-gradient(to right, #e0e5ec, #f1f5f9);
+  color: #212529;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header and Navigation */
+.govt-header {
+  background: #003366;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+.govt-header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.govt-header nav {
+  margin-top: 10px;
+}
+
+.govt-header nav button {
+  background: #ffcc00;
+  color: #003366;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.govt-header nav button:hover {
+  background: #ffdb4d;
+}
+
+/* Content Layout */
+.govt-content {
+  display: flex;
+  padding: 20px;
+}
+
+/* Sidebar Navigation */
+.govt-sidebar {
+  width: 30%;
+  background: #f8f9fa;
+  padding: 15px;
+  border-right: 2px solid #ccc;
+}
+
+.govt-sidebar h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.govt-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.dept-item {
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.dept-item.enabled {
+  color: #003366;
+  font-weight: bold;
+}
+
+.dept-item.enabled:hover {
+  background: #cce5ff;
+}
+
+.dept-item.disabled {
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* Main Content */
+.govt-main {
+  flex: 1;
+  padding: 20px;
+  text-align: left;
+}
+
+.govt-main h2 {
+  font-size: 22px;
+  color: #003366;
+  border-bottom: 2px solid #003366;
+  padding-bottom: 10px;
+}
+
+.govt-main p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.highlight-box {
+  background: #ffcc00;
+  padding: 10px;
+  border-radius: 5px;
+  color: #333;
+  font-weight: bold;
+  margin-top: 20px;
+}

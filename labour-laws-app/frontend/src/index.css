@@ -1,0 +1,401 @@
+/* Center everything */
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Title Styling */
+.landing-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Dropdown Container */
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Stylish Dropdown */
+.dropdown {
+  width: 280px;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover & Focus Effect */
+.dropdown:hover,
+.dropdown:focus {
+  border-color: #0056b3;
+  background-color: #eef7ff;
+  outline: none;
+}
+
+/* Center form */
+.form-container {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease-in-out;
+}
+
+/* Form title */
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* Form inputs */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #444;
+  font-size: 15px;
+}
+
+/* Input fields */
+.form-group input,
+.form-group textarea {
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* Hover & Focus Effect */
+.form-group input:hover,
+.form-group textarea:hover,
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #007bff;
+  background-color: #eef7ff;
+  outline: none;
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Error messages */
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .form-container {
+    max-width: 90%;
+    padding: 20px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  .submit-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* General Form Styling */
+.form-container {
+  max-width: 650px;
+  margin: 50px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Title */
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Form Content */
+.form-content {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* Editable Underlined Fields */
+.editable-field {
+  display: inline-block;
+  min-width: 120px;
+  border-bottom: 2px solid #007bff;
+  font-size: 16px;
+  padding: 2px 5px;
+  outline: none;
+  cursor: text;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Highlight editable fields on focus */
+.editable-field:focus {
+  background-color: #eef7ff;
+  border-bottom: 2px solid #0056b3;
+}
+
+/* Date Input Field */
+.date-input {
+  border: none;
+  border-bottom: 2px solid #007bff;
+  font-size: 16px;
+  padding: 2px 5px;
+  outline: none;
+  background: transparent;
+}
+
+/* Error Messages */
+.error-container {
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+/* General Form Styling */
+.form-container {
+  max-width: 650px;
+  margin: 50px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Title */
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Form Content */
+.form-content {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* Underlined Input Fields */
+.underline-input {
+  display: inline-block;
+  width: 150px;
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 16px;
+  padding: 2px;
+  text-align: center;
+  outline: none;
+  background: transparent;
+}
+
+.underline-input:focus {
+  border-bottom: 2px solid #007bff;
+}
+
+/* Date Input Field */
+.date-input {
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 16px;
+  padding: 2px;
+  outline: none;
+  background: transparent;
+}
+
+/* Signature Alignment */
+.signature-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.underline-space {
+  display: inline-block;
+  width: 150px;
+  border-bottom: 2px solid black;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Underlined Input Fields */
+.underline-input {
+  display: inline-block;
+  width: 150px;
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 16px;
+  padding: 2px;
+  text-align: center;
+  outline: none;
+  background: transparent;
+}
+
+.underline-input:focus {
+  border-bottom: 2px solid #007bff;
+}
+
+/* Date Input Field */
+.date-input {
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 16px;
+  padding: 2px;
+  outline: none;
+  background: transparent;
+}
+
+/* Error Messages Below Each Field */
+.error {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Underlined Input Fields */
+.underline-input {
+  display: inline-block;
+  width: 150px;
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 16px;
+  padding: 2px;
+  text-align: center;
+  outline: none;
+  background: transparent;
+}
+
+.underline-input:focus {
+  border-bottom: 2px solid #007bff;
+}
+
+/* Date Input Field */
+.date-input {
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 16px;
+  padding: 2px;
+  outline: none;
+  background: transparent;
+}
+
+/* Error Messages Below Each Field */
+.error {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Signature Alignment */
+.signature-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.underline-space {
+  display: inline-block;
+  width: 200px;
+  border-bottom: 2px solid black;
+  text-align: center;
+}

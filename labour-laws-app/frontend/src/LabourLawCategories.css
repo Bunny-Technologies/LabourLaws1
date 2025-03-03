@@ -1,0 +1,110 @@
+/* 🔹 Page Background */
+body {
+    background: linear-gradient(to right, #e0ecff, #b3d1ff);
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* 🔹 Main container styling (Card) */
+  .law-categories-container {
+    width: 500px; /* Fixed width for better alignment */
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
+    border-left: 8px solid #003366;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* 🔹 Hover effect for card */
+  .law-categories-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* 🔹 Title Styling */
+  .law-categories-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #003366;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 3px solid #003366;
+    padding-bottom: 10px;
+  }
+  
+  /* 🔹 List Styling */
+  .law-category-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensures proper centering */
+  }
+  
+  /* 🔹 Styling for each category item */
+  .law-category-item {
+    width: 90%; /* Ensures proper fit */
+    max-width: 400px; /* Prevents items from becoming too wide */
+    font-size: 16px;
+    padding: 12px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* 🔹 Enabled categories (Clickable) */
+  .law-category-item.enabled {
+    background: linear-gradient(to right, #003366, #0056b3);
+    color: white;
+    cursor: pointer;
+    border: 1px solid #003366;
+  }
+  
+  /* 🔹 Hover effect for enabled categories */
+  .law-category-item.enabled:hover {
+    background: linear-gradient(to right, #0056b3, #007bff);
+    transform: scale(1.03);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* 🔹 Click effect */
+  .law-category-item.enabled:active {
+    transform: scale(0.97);
+  }
+  
+  /* 🔹 Disabled categories */
+  .law-category-item.disabled {
+    background: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  /* Logout Button */
+.logout-btn {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 120px;
+  }
+  
+  .logout-btn:hover {
+    background: darkred;
+  }
+  
