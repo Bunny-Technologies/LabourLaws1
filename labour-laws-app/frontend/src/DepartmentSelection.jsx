@@ -20,16 +20,17 @@ const DepartmentSelection = () => {
 
   const handleSelectDepartment = (dept) => {
     if (dept.enabled) {
-      setActiveDepartment(dept.name);
-      setTimeout(() => navigate(`/forms/${dept.name.replace(/\s+/g, "-").toLowerCase()}`), 300);
+      let formattedPath = dept.name.replace(/\s+/g, "-").replace(/,/g, "").toLowerCase();
+      navigate(`/${formattedPath}`); // ✅ Navigating to /factories-act-1948
     }
   };
+  
 
   return (
     <div className="govt-page">
       {/* Header with Navigation */}
       <header className="govt-header">
-        <h1>Regulatory, Labour Law Risk Management Software</h1>
+        <h1>Government Labour Law Compliance Portal</h1>
         <nav>
           <button>Industrial / Labour Law Compliances</button>
           <button>Filing Due Dates / Returns</button>
@@ -60,14 +61,14 @@ const DepartmentSelection = () => {
         <main className="govt-main">
           <h2>Manage Labour Law Compliances</h2>
           <p>
-            Labour Law Compliance is no longer an ad-hoc activity as it involves risk at the
-            organizational level. In order to stay compliant with regulatory guidelines,
-            companies must ensure structured compliance mechanisms...
+            Labour Law Compliance is essential for organizations to mitigate legal risks and adhere to government regulations.
+            Companies must establish structured compliance mechanisms to ensure proper governance.
           </p>
           <div className="highlight-box">
-            <strong>Non-Compliance is a Big Risk!</strong>
+            <strong>⚠️ Non-Compliance is a Serious Risk!</strong>
             <p>
-              Managing Labour Law Compliances is important for any organization...
+              Failure to comply with labour laws can result in legal penalties, financial losses, and reputational damage. 
+              Ensure your organization is compliant with the latest government regulations.
             </p>
           </div>
         </main>

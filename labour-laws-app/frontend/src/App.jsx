@@ -5,6 +5,8 @@ import LabourLawCategories from "./LabourLawCategories";
 import DepartmentSelection from "./DepartmentSelection";
 import FormsList from "./FormsList";
 import FormPage from "./FormPage";
+import FactoriesFormsList from "./FactoriesAct/FactoriesFormsList";
+import FactoriesFormPage from "./FactoriesAct/FactoriesFormPage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -30,6 +32,10 @@ const App = () => {
           <Route path="/categories" element={<LabourLawCategories />} />
           <Route path="/forms/:department" element={<FormsList />} />
           <Route path="/form/:formName" element={<FormPage />} />
+          <Route path="/factories-act-1948" element={<FactoriesFormsList />} />
+          <Route path="/factories-act/form/:id" element={<FactoriesFormPage />} />
+          <Route path="/factories-act-1948/form/:id" element={<FactoriesFormPage />} />
+
         </>
       ) : (
         <Route path="*" element={<Navigate to="/" replace />} />
