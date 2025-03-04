@@ -98,6 +98,56 @@ const FactoriesFormPage = () => {
         { name: "approval_authority", label: "Approval Authority Name", type: "text", required: true },
         { name: "application_date", label: "Date of Application", type: "date", required: true },
       ],
+      5: [ // Form 2 - Notice of Occupation
+        { name: "factory_name", label: "Name of the Factory", type: "text", required: true },
+        { name: "factory_address", label: "Factory Address", type: "text", required: true },
+        { name: "owner_name", label: "Name of the Occupier (Owner)", type: "text", required: true },
+        { name: "manager_name", label: "Name of the Manager", type: "text", required: true },
+        { name: "nature_of_work", label: "Nature of Manufacturing Process", type: "text", required: true },
+        { name: "no_of_workers", label: "Number of Workers", type: "number", required: true },
+        { name: "date_of_commencement", label: "Date of Commencement", type: "date", required: true },
+      ],
+      6: [ // Form 3 - Register of Adult Workers
+        { name: "worker_name", label: "Name of the Worker", type: "text", required: true },
+        { name: "worker_father_name", label: "Father’s/Husband’s Name", type: "text", required: true },
+        { name: "worker_dob", label: "Date of Birth", type: "date", required: true },
+        { name: "worker_gender", label: "Gender", type: "select", options: ["Male", "Female", "Other"], required: true },
+        { name: "worker_qualification", label: "Educational Qualification", type: "text", required: false },
+        { name: "worker_address", label: "Permanent Address", type: "text", required: true },
+        { name: "worker_designation", label: "Designation", type: "text", required: true },
+        { name: "worker_department", label: "Department", type: "text", required: true },
+        { name: "worker_joining_date", label: "Date of Joining", type: "date", required: true },
+        { name: "worker_shift", label: "Shift Assigned", type: "select", options: ["Day", "Night", "Rotational"], required: true },
+        { name: "worker_signature", label: "Worker’s Signature", type: "file", required: false },
+      ],
+      7: [ // Form 4 - Register of Child Workers
+        { name: "child_name", label: "Name of the Child Worker", type: "text", required: true },
+        { name: "child_father_name", label: "Father’s/Husband’s Name", type: "text", required: true },
+        { name: "child_dob", label: "Date of Birth", type: "date", required: true },
+        { name: "child_age_proof", label: "Age Proof Document (Upload)", type: "file", required: true },
+        { name: "child_gender", label: "Gender", type: "select", options: ["Male", "Female", "Other"], required: true },
+        { name: "child_address", label: "Permanent Address", type: "text", required: true },
+        { name: "child_guardian_contact", label: "Guardian Contact Number", type: "text", required: true },
+        { name: "child_nature_of_work", label: "Nature of Work Assigned", type: "text", required: true },
+        { name: "child_working_hours", label: "Working Hours", type: "text", required: true },
+        { name: "child_medical_fitness", label: "Medical Fitness Certificate (Upload)", type: "file", required: true },
+        { name: "child_education_status", label: "Is the Child Attending School?", type: "select", options: ["Yes", "No"], required: true },
+        { name: "child_signature", label: "Child’s Signature", type: "file", required: false },
+      ],
+      8: [ // Form 5 - Certificate of Fitness for Young Workers
+        { name: "worker_name", label: "Name of Young Worker", type: "text", required: true },
+        { name: "worker_father_name", label: "Father’s/Husband’s Name", type: "text", required: true },
+        { name: "worker_dob", label: "Date of Birth", type: "date", required: true },
+        { name: "worker_age_proof", label: "Age Proof Document (Upload)", type: "file", required: true },
+        { name: "worker_gender", label: "Gender", type: "select", options: ["Male", "Female", "Other"], required: true },
+        { name: "worker_address", label: "Permanent Address", type: "text", required: true },
+        { name: "worker_contact", label: "Guardian Contact Number", type: "text", required: true },
+        { name: "worker_medical_exam_date", label: "Date of Medical Examination", type: "date", required: true },
+        { name: "worker_medical_certificate", label: "Medical Fitness Certificate (Upload)", type: "file", required: true },
+        { name: "worker_signature", label: "Worker’s Signature", type: "file", required: false },
+        { name: "certified_by", label: "Certified By (Doctor’s Name)", type: "text", required: true },
+        { name: "certification_date", label: "Date of Certification", type: "date", required: true },
+      ],
 
   };
   
@@ -108,6 +158,8 @@ const FactoriesFormPage = () => {
   );
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+
+  
 
   // ✅ Input Validation Function
   const validateField = (name, value) => {

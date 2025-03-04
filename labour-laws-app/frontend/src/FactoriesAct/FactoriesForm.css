@@ -75,4 +75,218 @@
     color: red;
     font-weight: bold;
   }
+  .factories-form-page {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: "Arial", sans-serif;
+    overflow-y: auto;
+    padding-right: 40px; /* Increase space between inputs & scrollbar */
+}
+  .factories-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-right: 15px; /* Extra space between inputs & scrollbar */
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    background: white;
+    margin-bottom: 10px;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0px 0px 5px rgba(0, 86, 179, 0.5);
+  }
+  
+  .submit-btn,
+  .download-btn {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .submit-btn {
+    background: #004080;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background: #0056b3;
+  }
+  
+  .download-btn {
+    background: #008000;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .download-btn:hover {
+    background: #009900;
+  }
+  .scroll-container {
+    padding-right: 20px !important;
+}
+.factories-form-page {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: "Arial", sans-serif;
+    overflow-y: auto; /* Allows vertical scroll */
+    overflow-x: hidden; /* ✅ Hides horizontal scroll */
+    padding-right: 20px; /* Adds space between input and scrollbar */
+}
+.factories-form input {
+    width: 100%; /* Ensures the inputs fit within the form */
+    box-sizing: border-box; /* Ensures padding doesn’t increase width */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.parent-container {
+    overflow-x: hidden !important; /* Ensures no horizontal scroll */
+    width: 100%;
+}
+.factories-form-page {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: "Arial", sans-serif;
+    border: 1px solid #ccc;
+  }
+  
+  .factories-form h2 {
+    text-align: center;
+    color: #002f4b;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #002f4b;
+    padding-bottom: 10px;
+  }
+  
+  .factories-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .form-group input:focus {
+    border-color: #005f73;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 95, 115, 0.5);
+  }
+  
+  .submit-btn {
+    width: 100%;
+    background: #002f4b;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .submit-btn:hover {
+    background: #005f73;
+  }
+  
+  .download-btn {
+    width: 100%;
+    background: #28a745;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+  }
+  
+  .download-btn:hover {
+    background: #218838;
+  }
+  
+  /* Custom scrollbar */
+  .factories-form-page::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .factories-form-page::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .factories-form-page::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
   

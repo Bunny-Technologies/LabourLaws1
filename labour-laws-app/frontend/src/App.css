@@ -40,3 +40,7 @@
 .read-the-docs {
   color: #888;
 }
+.arrow-button.disabled {
+  opacity: 0.5; /* Gray out */
+  pointer-events: none; /* Prevent clicks */
+}
