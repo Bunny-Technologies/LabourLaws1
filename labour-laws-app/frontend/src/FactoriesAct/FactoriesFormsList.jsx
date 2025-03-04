@@ -13,9 +13,9 @@ const factoriesForms = [
     { id: 8, name: "Form 5 - Certificate of Fitness for Young Workers", file: "" },
     { id: 9, name: "Form 10 - Register of Leave with Wages", file: "" },
     { id: 10, name: "Form 11 - Health Register", file: "" },
-    { id: 11, name: "Form 18 - Report of Dangerous Occurrences", file: "" },
-    { id: 12, name: "Form 20 - Humidity Register", file: "" },
-    { id: 13, name: "Form 21 - Register of Whitewashing and Repairs", file: "" }
+    { id: 11, name: "Form 18 - Report of Dangerous Occurrences", file: "", disabled: true },
+    { id: 12, name: "Form 20 - Humidity Register", file: "" , disabled: true},
+    { id: 13, name: "Form 21 - Register of Whitewashing and Repairs", file: "", disabled: true }
 ];
     
 
@@ -27,42 +27,32 @@ const FactoriesFormsList = () => {
 };
 
   
-    return (
-      <div className="factories-forms-container">
-        <h2 className="form-heading">📜 Factories Act, 1948 - Forms</h2>
-        <table className="factories-forms-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>📄 Form Name</th>
-              {/* <th>📥 Download</th> */}
+return (
+    <div className="factories-forms-container">
+      <h2 className="form-heading">📜 Factories Act, 1948 - Forms</h2>
+      <table className="factories-forms-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>📄 Form Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {factoriesForms.map((form, index) => (
+            <tr
+              key={form.id}
+              className={`form-row ${form.disabled ? "disabled-form" : "clickable-form"}`}
+              onClick={() => !form.disabled && handleFormClick(form)} // Prevents click if disabled
+            >
+              <td>{index + 1}</td>
+              <td>{form.name}</td>
             </tr>
-          </thead>
-          <tbody>
-            {factoriesForms.map((form, index) => (
-              <tr key={form.id} className="form-row">
-                <td>{index + 1}</td>
-                <td
-                  className="clickable-form"
-                  onClick={() => handleFormClick(form)}
-                >
-                  {form.name}
-                </td>
-                {/* <td>
-                  {form.file ? (
-                    <a href={`/assets/${form.file}`} download className="download-btn">
-                      ⬇️ Download
-                    </a>
-                  ) : (
-                    <span className="not-available">❌ Not Available</span>
-                  )}
-                </td> */}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+  
   };
   
   export default FactoriesFormsList;

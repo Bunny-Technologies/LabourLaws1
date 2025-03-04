@@ -7,6 +7,9 @@ import FormsList from "./FormsList";
 import FormPage from "./FormPage";
 import FactoriesFormsList from "./FactoriesAct/FactoriesFormsList";
 import FactoriesFormPage from "./FactoriesAct/FactoriesFormPage";
+import ContractLabourFormsList from "./ContractLabourAct/ContractLabourFormsList";
+import ContractLabourFormPage from "./ContractLabourAct/ContractLabourFormPage";
+
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -35,6 +38,8 @@ const App = () => {
           <Route path="/factories-act-1948" element={<FactoriesFormsList />} />
           <Route path="/factories-act/form/:id" element={<FactoriesFormPage />} />
           <Route path="/factories-act-1948/form/:id" element={<FactoriesFormPage />} />
+          <Route path="/contract-labour-regulation-act-1970" element={<ContractLabourFormsList />} />
+          <Route path="/contract-labour-act-1970/form/:id" element={<ContractLabourFormPage />} />
 
         </>
       ) : (

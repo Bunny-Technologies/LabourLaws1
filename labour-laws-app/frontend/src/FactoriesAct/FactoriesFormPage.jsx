@@ -148,7 +148,30 @@ const FactoriesFormPage = () => {
         { name: "certified_by", label: "Certified By (Doctor’s Name)", type: "text", required: true },
         { name: "certification_date", label: "Date of Certification", type: "date", required: true },
       ],
-
+      9: [
+        { name: "employee_name", label: "Employee Name", type: "text", required: true },
+        { name: "employee_id", label: "Employee ID/Code", type: "text", required: true },
+        { name: "department", label: "Department", type: "text", required: true },
+        { name: "designation", label: "Designation", type: "text", required: true },
+        { name: "total_leaves_earned", label: "Total Leaves Earned", type: "number", required: true },
+        { name: "leave_type", label: "Leave Type", type: "select", options: ["Casual Leave", "Sick Leave", "Earned Leave"], required: true },
+        { name: "date_leave_applied", label: "Date of Leave Applied", type: "date", required: true },
+        { name: "date_leave_approved", label: "Date of Leave Approved", type: "date", required: false }, 
+        { name: "supervisor_name", label: "Supervisor/Manager Name", type: "text", required: true },
+        { name: "entry_date", label: "Date of Entry", type: "date", required: true }
+      ],
+      10: [
+        { name: "worker_name", label: "Worker Name", type: "text", required: true },
+        { name: "worker_id", label: "Worker ID", type: "text", required: true },
+        { name: "department", label: "Department", type: "text", required: true },
+        { name: "designation", label: "Designation", type: "text", required: true },
+        { name: "medical_exam_date", label: "Date of Medical Examination", type: "date", required: true },
+        { name: "health_condition", label: "General Health Condition", type: "text", required: true },
+        { name: "hazardous_exposure", label: "Exposure to Hazardous Substances", type: "text", required: false },  
+        { name: "doctor_name", label: "Doctor/Examiner Name", type: "text", required: true },
+        { name: "doctor_remarks", label: "Medical Remarks", type: "text", required: false },
+        { name: "next_exam_date", label: "Next Scheduled Examination Date", type: "date", required: false }
+      ],
   };
   
 
@@ -205,15 +228,17 @@ const FactoriesFormPage = () => {
     e.preventDefault();
     let validationErrors = {};
 
-    // Validate all fields
+    // Validate all fields before submission
     formFields[form.id]?.forEach((field) => {
       const errorMsg = validateField(field.name, formData[field.name]);
       if (errorMsg) validationErrors[field.name] = errorMsg;
     });
 
+    console.log("Validation Errors:", validationErrors); // Debugging
+
     if (Object.keys(validationErrors).length === 0) {
       setSubmitted(true);
-      alert("Form submitted successfully! Now you can download the PDF.");
+      alert("✅ Form submitted successfully! Now you can download the PDF.");
     } else {
       setErrors(validationErrors);
     }
@@ -222,56 +247,158 @@ const FactoriesFormPage = () => {
   // ✅ Handle PDF Generation
   const handleDownloadPDF = () => {
     if (!submitted) return;
-    
+
     const doc = new jsPDF();
-    doc.setFont("helvetica");
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+
+    let title = "";
+    let subtitle = "";
+    let fileName = "";
+
+    // Define form-specific titles and filenames
+    switch (form.id) {
+        case 1:
+            title = "FORM NO. 26-A";
+            subtitle = "Dust/Fume Extraction System Report";
+            fileName = "Dust_Fume_Report.pdf";
+            break;
+        case 2:
+            title = "FORM 29 - REGISTER OF ACCIDENTS";
+            subtitle = "Accident Reporting & Investigation";
+            fileName = "Register_of_Accidents.pdf";
+            break;
+        case 3:
+            title = "FORM 33 - CERTIFICATE OF FITNESS";
+            subtitle = "Issued Under Factories Act, 1948";
+            fileName = "Certificate_of_Fitness.pdf";
+            break;
+        case 4:
+            title = "FORM 1 - APPLICATION FOR PERMISSION";
+            subtitle = "To Construct/Extend a Factory";
+            fileName = "Application_for_Permission.pdf";
+            break;
+        case 5:
+            title = "FORM 2 - NOTICE OF OCCUPATION";
+            subtitle = "Factories Act, 1948 Compliance";
+            fileName = "Notice_of_Occupation.pdf";
+            break;
+        case 6:
+            title = "FORM 3 - REGISTER OF ADULT WORKERS";
+            subtitle = "Record of Adult Workers";
+            fileName = "Register_of_Adult_Workers.pdf";
+            break;
+        case 7:
+            title = "FORM 4 - REGISTER OF CHILD WORKERS";
+            subtitle = "Details of Employed Child Workers";
+            fileName = "Register_of_Child_Workers.pdf";
+            break;
+        case 8:
+            title = "FORM 5 - CERTIFICATE OF FITNESS FOR YOUNG WORKERS";
+            subtitle = "Factories Act Compliance Document";
+            fileName = "Certificate_of_Fitness_Young_Workers.pdf";
+            break;
+        case 9:
+            title = "FORM 10 - REGISTER OF LEAVE WITH WAGES";
+            subtitle = "Employee Leave Tracking Record";
+            fileName = "Register_of_Leave_with_Wages.pdf";
+            break;
+        case 10:
+            title = "FORM 11 - HEALTH REGISTER";
+            subtitle = "Worker Health Status Record";
+            fileName = "Health_Register.pdf";
+            break;
+        case 11:
+            title = "FORM 18 - REPORT OF DANGEROUS OCCURRENCES";
+            subtitle = "Incident Documentation";
+            fileName = "Report_of_Dangerous_Occurrences.pdf";
+            break;
+        case 12:
+            title = "FORM 20 - HUMIDITY REGISTER";
+            subtitle = "Humidity Control Records";
+            fileName = "Humidity_Register.pdf";
+            break;
+        case 13:
+            title = "FORM 21 - REGISTER OF WHITEWASHING & REPAIRS";
+            subtitle = "Factory Maintenance Report";
+            fileName = "Register_of_Whitewashing_and_Repairs.pdf";
+            break;
+        default:
+            title = "FACTORY FORM";
+            subtitle = "Generated Report";
+            fileName = "Factory_Form_Report.pdf";
+            break;
+    }
+
+    // Formatting Header
+    doc.setTextColor(0, 0, 139); // Dark Blue
+    doc.text(title, 105, 20, null, null, "center");
+
     doc.setFontSize(12);
-    
-    doc.text("FORM NO. 26-A", 80, 20);
-    doc.text("(Prescribed under Rule 102)", 70, 30);
-    doc.text("TEST REPORT : DUST/FUME- EXTRACTION SYSTEM", 50, 40);
+    doc.setTextColor(50);
+    doc.text(subtitle, 105, 30, null, null, "center");
+
+    // Formatting the "Generated Form Data" section
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Generated Form Data:", 20, 50);
 
     let y = 60;
+    doc.setFontSize(12);
     formFields[form.id]?.forEach((field) => {
-      doc.text(`${field.label}: ${formData[field.name] || "N/A"}`, 20, y);
-      y += 10;
+        doc.setFont("helvetica", "normal");
+        doc.text(`${field.label}:`, 20, y);
+        doc.setFont("helvetica", "bold");
+        doc.text(`${formData[field.name] || "N/A"}`, 100, y);
+        y += 10;
     });
 
-    doc.save("Dust_Fume_Report.pdf");
-  };
+    // Save the PDF with a dynamic filename
+    doc.save(fileName);
+};
 
   return (
     <div className="factories-form-page">
-      <h2>{form?.name}</h2>
+  <h2>{form?.name}</h2>
 
-
-      <form
-        className="factories-form"
-        onSubmit={handleSubmit}
-        style={{ maxHeight: "80vh", overflowY: "auto", padding: "20px" }}
-      >
-        {formFields[form.id]?.map((field, index) => (
-          <div key={index} className="form-group">
-            <label>{field.label}:</label>
-            <input
-              type={field.type || "text"}
-              name={field.name}
-              value={formData[field.name] || ""}
-              onChange={handleChange}
-              required={field.required}
-            />
-            {errors[field.name] && <p className="error-message">{errors[field.name]}</p>}
-          </div>
-        ))}
-
-        <div className="form-buttons">
-          <button type="submit" className="submit-btn">✅ Submit</button>
-          {submitted && (
-            <button onClick={handleDownloadPDF} className="download-btn">📥 Download PDF</button>
-          )}
+  <form
+    className="factories-form"
+    onSubmit={handleSubmit}
+    style={{ maxHeight: "80vh", overflowY: "auto", padding: "20px" }}
+  >
+    <fieldset>
+      <legend>Fill in the details</legend>
+      
+      {formFields[form.id]?.map((field, index) => (
+        <div key={index} className="form-group">
+          <label htmlFor={field.name}>{field.label}:</label>
+          <input
+            type={field.type || "text"}
+            id={field.name}
+            name={field.name}
+            value={formData[field.name] || ""}
+            onChange={handleChange}
+            required={field.required}
+            className="form-input"
+          />
+          {errors[field.name] && <p className="error-message">{errors[field.name]}</p>}
         </div>
-      </form>
-    </div>
+      ))}
+    </fieldset>
+
+    <div className="form-buttons">
+  <button type="submit" className="submit-btn" disabled={submitted}>
+    ✅ Submit
+  </button>
+  {submitted && (
+    <button onClick={handleDownloadPDF} className="download-btn">
+      📥 Download PDF
+    </button>
+  )}
+</div>
+  </form>
+</div>
+
   );
 };
 
