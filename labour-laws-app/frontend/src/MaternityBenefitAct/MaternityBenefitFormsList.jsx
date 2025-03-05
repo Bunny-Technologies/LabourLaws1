@@ -24,7 +24,7 @@ const MaternityBenefitFormsList = () => {
   
 return (
     <div className="factories-forms-container">
-      <h2 className="form-heading">📜 Maternity Benefit Act, 1961 - Forms - Forms</h2>
+      <h2 className="form-heading">📜 Maternity Benefit Act, 1961 - Forms</h2>
       <table className="factories-forms-table">
         <thead>
           <tr>
