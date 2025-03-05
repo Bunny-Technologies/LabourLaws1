@@ -71,8 +71,6 @@ const FactoriesFormPage = () => {
         { name: "dangerous_operation", label: "Dangerous Operation", type: "text", required: true },
         { name: "identification_marks", label: "Identification Marks", type: "text", required: true },
         { name: "ascertained_age", label: "Age Ascertained from Examination", type: "number", required: true },
-        { name: "fitness_status", label: "Fit for Employment?", type: "radio", options: ["Fit", "Unfit"], required: true },
-        { name: "unfitness_reason", label: "Reason for Unfitness (If Applicable)", type: "text", required: false },
         { name: "previous_certificate_serial", label: "Serial Number of Previous Certificate", type: "text", required: false },
         { name: "medical_officer_signature", label: "Factory Medical Officer Signature", type: "text", required: true },
         { name: "factory_stamp", label: "Stamp of Factory Medical Officer", type: "text", required: true },
@@ -256,106 +254,100 @@ const FactoriesFormPage = () => {
     let subtitle = "";
     let fileName = "";
 
-    // Define form-specific titles and filenames
     switch (form.id) {
-        case 1:
+        case 1: // FORM 26-A - DUST/FUME EXTRACTION SYSTEM REPORT
             title = "FORM NO. 26-A";
-            subtitle = "Dust/Fume Extraction System Report";
-            fileName = "Dust_Fume_Report.pdf";
+            subtitle = "Test Report: Dust/Fume Extraction System";
+            fileName = "Dust_Fume_Extraction_System_Report.pdf";
+
+            doc.text(title, 105, 15, null, null, "center");
+            doc.setFontSize(12);
+            doc.text(subtitle, 105, 25, null, null, "center");
+
+            let y26 = 40;
+            const dustFumeFields = [
+                "Description of system", "Serial No. of Hood", "Contaminant captured",
+                "Capture Velocities (Design & Actual)", "Volume Exhausted at Hood",
+                "Hood Static Pressure", "Total Pressure Drop at Joints", "Transport Velocity in Dust/Fume",
+                "Air Cleaning Device Type", "Velocity at Inlet", "Fan Type Used",
+                "Fan Volume Handled", "Fan Static Pressures", "Fan Motor Speed & Horse Power",
+                "Defects (if any)", "Examiner's Name", "Qualification", "Address", "Date of Examination"
+            ];
+
+            dustFumeFields.forEach(field => {
+                doc.text(`${field}: ${formData[field.toLowerCase().replace(/\s+/g, '_')] || "N/A"}`, 20, y26);
+                y26 += 10;
+            });
+
+            doc.text("I certify that on this date, I thoroughly examined the system and confirm the details provided.", 20, y26 + 10);
             break;
-        case 2:
-            title = "FORM 29 - REGISTER OF ACCIDENTS";
-            subtitle = "Accident Reporting & Investigation";
+
+        case 2: // FORM 29 - REGISTER OF ACCIDENTS
+            title = "FORM NO. 29";
+            subtitle = "Register of Accidents, Major Accidents, and Dangerous Occurrences";
             fileName = "Register_of_Accidents.pdf";
+
+            doc.text(title, 105, 15, null, null, "center");
+            doc.setFontSize(12);
+            doc.text(subtitle, 105, 25, null, null, "center");
+
+            let y29 = 40;
+            const accidentFields = [
+                "Serial Number", "Date & Time of Notice", "Name & Serial Number of Person",
+                "Register Type (Adult/Child)", "ESIC Insurance Number", "Date of Injury",
+                "Nature of Injury/Dangerous Occurrence", "Cause of Accident",
+                "Time & Place of Accident", "Task at the Time", "Person Notified",
+                "Witness 1", "Witness 2", "Return to Work Date", "Days Absent", "Entry Person", "Entry Date"
+            ];
+
+            accidentFields.forEach(field => {
+                doc.text(`${field}: ${formData[field.toLowerCase().replace(/\s+/g, '_')] || "N/A"}`, 20, y29);
+                y29 += 10;
+            });
+
+            doc.text("I certify that the above accident was reported correctly and necessary actions have been taken.", 20, y29 + 10);
             break;
-        case 3:
-            title = "FORM 33 - CERTIFICATE OF FITNESS";
-            subtitle = "Issued Under Factories Act, 1948";
+
+        case 3: // FORM 33 - CERTIFICATE OF FITNESS
+            title = "FORM NO. 33";
+            subtitle = "Certificate of Fitness for Employment in Hazardous Processes";
             fileName = "Certificate_of_Fitness.pdf";
+
+            doc.text(title, 105, 15, null, null, "center");
+            doc.setFontSize(12);
+            doc.text(subtitle, 105, 25, null, null, "center");
+
+            let y33 = 40;
+            const fitnessFields = [
+                "Serial Number in Register of Adult Workers", "Name of Person Examined", "Father’s Name",
+                "Sex", "Residence", "Date of Birth", "Factory Name & Address", "Employment Status",
+                "Hazardous Process", "Dangerous Operation", "Identification Marks",
+                "Age Ascertained", "Medical Officer Signature", "Factory Stamp",
+                "Examination Date", "Certifying Surgeon Reference", "Unfit Period", "Symptoms Observed"
+            ];
+
+            fitnessFields.forEach(field => {
+                doc.text(`${field}: ${formData[field.toLowerCase().replace(/\s+/g, '_')] || "N/A"}`, 20, y33);
+                y33 += 10;
+            });
+
+            doc.text("This certificate is issued as per regulations under the Factories Act.", 20, y33 + 10);
             break;
-        case 4:
-            title = "FORM 1 - APPLICATION FOR PERMISSION";
-            subtitle = "To Construct/Extend a Factory";
-            fileName = "Application_for_Permission.pdf";
-            break;
-        case 5:
-            title = "FORM 2 - NOTICE OF OCCUPATION";
-            subtitle = "Factories Act, 1948 Compliance";
-            fileName = "Notice_of_Occupation.pdf";
-            break;
-        case 6:
-            title = "FORM 3 - REGISTER OF ADULT WORKERS";
-            subtitle = "Record of Adult Workers";
-            fileName = "Register_of_Adult_Workers.pdf";
-            break;
-        case 7:
-            title = "FORM 4 - REGISTER OF CHILD WORKERS";
-            subtitle = "Details of Employed Child Workers";
-            fileName = "Register_of_Child_Workers.pdf";
-            break;
-        case 8:
-            title = "FORM 5 - CERTIFICATE OF FITNESS FOR YOUNG WORKERS";
-            subtitle = "Factories Act Compliance Document";
-            fileName = "Certificate_of_Fitness_Young_Workers.pdf";
-            break;
-        case 9:
-            title = "FORM 10 - REGISTER OF LEAVE WITH WAGES";
-            subtitle = "Employee Leave Tracking Record";
-            fileName = "Register_of_Leave_with_Wages.pdf";
-            break;
-        case 10:
-            title = "FORM 11 - HEALTH REGISTER";
-            subtitle = "Worker Health Status Record";
-            fileName = "Health_Register.pdf";
-            break;
-        case 11:
-            title = "FORM 18 - REPORT OF DANGEROUS OCCURRENCES";
-            subtitle = "Incident Documentation";
-            fileName = "Report_of_Dangerous_Occurrences.pdf";
-            break;
-        case 12:
-            title = "FORM 20 - HUMIDITY REGISTER";
-            subtitle = "Humidity Control Records";
-            fileName = "Humidity_Register.pdf";
-            break;
-        case 13:
-            title = "FORM 21 - REGISTER OF WHITEWASHING & REPAIRS";
-            subtitle = "Factory Maintenance Report";
-            fileName = "Register_of_Whitewashing_and_Repairs.pdf";
-            break;
+
         default:
             title = "FACTORY FORM";
             subtitle = "Generated Report";
             fileName = "Factory_Form_Report.pdf";
+            doc.text(title, 105, 15, null, null, "center");
+            doc.text(subtitle, 105, 25, null, null, "center");
+            doc.text("No specific format found for this form.", 20, 40);
             break;
     }
 
-    // Formatting Header
-    doc.setTextColor(0, 0, 139); // Dark Blue
-    doc.text(title, 105, 20, null, null, "center");
-
-    doc.setFontSize(12);
-    doc.setTextColor(50);
-    doc.text(subtitle, 105, 30, null, null, "center");
-
-    // Formatting the "Generated Form Data" section
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Generated Form Data:", 20, 50);
-
-    let y = 60;
-    doc.setFontSize(12);
-    formFields[form.id]?.forEach((field) => {
-        doc.setFont("helvetica", "normal");
-        doc.text(`${field.label}:`, 20, y);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${formData[field.name] || "N/A"}`, 100, y);
-        y += 10;
-    });
-
-    // Save the PDF with a dynamic filename
+    // Save the PDF
     doc.save(fileName);
 };
+
 
   return (
     <div className="factories-form-page">
