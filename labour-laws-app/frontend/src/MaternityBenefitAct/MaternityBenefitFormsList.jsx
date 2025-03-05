@@ -5,11 +5,11 @@ import "./MaternityBenefitForm.css";
 const MaternityBenefitForms = [
   { id: 1, name: "Form 18 - Claim for Maternity Benefit", file: "maternity_form18.pdf" }, 
   { id: 2, name: "Form 19 - Notice of Pregnancy", file: "maternity_form19.pdf" }, 
-  { id: 3, name: "Form 20 - Certificate of Pregnancy", file: "maternity_form20.pdf" }, 
+  { id: 3, name: "Form 20 - Certificate of Pregnancy", file: "maternity_form20.pdf",disabled: true }, 
   { id: 4, name: "Form 21 - Certificate of Expected Confinement", file: "maternity_form21.pdf" }, 
   { id: 5, name: "Form 22 - Claim for Maternity Benefit for Sickness", file: "maternity_form22.pdf" }, 
   { id: 6, name: "Form 23 - Claim for Maternity Benefit by Nominee", file: "maternity_form23.pdf", disabled:true },
-  { id: 7, name: "Form 24 - Certificate of Delivery", file: "maternity_form_24.pdf" },
+  { id: 7, name: "Form 24 - Certificate of Delivery", file: "maternity_form_24.pdf",disabled: true },
   { id: 8, name: "Form 25 - Claim for Medical Bonus", file: "maternity_form_25.pdf", disabled:true  }
 ];
 

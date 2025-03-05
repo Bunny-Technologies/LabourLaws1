@@ -5,14 +5,14 @@ import "./ContractLabourForm.css";
 const ContractLabourForms = [
     { id: 1, name: "Form XII - Register of Contractors", file: "contract_form_xii.pdf" },
     { id: 2, name: "Form XXII - Register of Advances", file: "contract_form_xxii.pdf" },
-    { id: 3, name: "Form XIII - Register of Workmen Employed by Contractor", file: "" },
-    { id: 4, name: "Form XIV - Employment Card", file: "" },
-    { id: 5, name: "Form XV - Service Certificate", file: "" },
+    { id: 3, name: "Form XIII - Register of Workmen Employed by Contractor", file: "",disabled: true },
+    { id: 4, name: "Form XIV - Employment Card", file: "",disabled: true },
+    { id: 5, name: "Form XV - Service Certificate", file: "",disabled: true },
     { id: 6, name: "Form XVI - Muster Roll", file: "", disabled: true },
     { id: 7, name: "Form XVII - Register of Wages", file: "" , disabled: true},
-    { id: 8, name: "Form XVIII - Register of Deductions for Damage or Loss", file: "" },
-    { id: 9, name: "Form XIX - Register of Fines", file: "" },
-    { id: 10, name: "Form XXI - Register of Overtime", file: "" },
+    { id: 8, name: "Form XVIII - Register of Deductions for Damage or Loss", file: "",disabled: true },
+    { id: 9, name: "Form XIX - Register of Fines", file: "",disabled: true },
+    { id: 10, name: "Form XXI - Register of Overtime", file: "",disabled: true },
 ];
 
     
