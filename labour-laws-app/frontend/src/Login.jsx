@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Login.css";
 
 const Login = ({ setIsAuthenticated }) => {  
@@ -12,12 +13,25 @@ const Login = ({ setIsAuthenticated }) => {
     e.preventDefault();
     setError("");
 
-    if (username === "admin" && password === "password") {
-      localStorage.setItem("user", JSON.stringify({ username }));
-      setIsAuthenticated(true);
-      navigate("/departments");
-    } else {
-      setError("❌ Invalid username or password");
+    try {
+      console.log("🔍 Sending request to backend...");
+      const response = await axios.post("http://localhost:5006/api/login", {
+        username,
+        password,
+      });
+
+      console.log("🔍 Server Response:", response.data);
+
+      if (response.data.message === "✅ Login successful") {
+        localStorage.setItem("user", JSON.stringify(response.data.user)); // ✅ Store user in localStorage
+        setIsAuthenticated(true); // ✅ Set authentication state
+        navigate("/departments"); // ✅ Redirect after login
+      } else {
+        setError("❌ Invalid username or password");
+      }
+    } catch (err) {
+      console.error("❌ API Error:", err);
+      setError("❌ Invalid credentials");
     }
   };
 
