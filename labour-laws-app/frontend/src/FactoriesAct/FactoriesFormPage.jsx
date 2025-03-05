@@ -222,25 +222,46 @@ const FactoriesFormPage = () => {
   };
 
   // ✅ Handle Form Submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let validationErrors = {};
-
+  
     // Validate all fields before submission
     formFields[form.id]?.forEach((field) => {
       const errorMsg = validateField(field.name, formData[field.name]);
       if (errorMsg) validationErrors[field.name] = errorMsg;
     });
-
-    console.log("Validation Errors:", validationErrors); // Debugging
-
-    if (Object.keys(validationErrors).length === 0) {
-      setSubmitted(true);
-      alert("✅ Form submitted successfully! Now you can download the PDF.");
-    } else {
+  
+    if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      return;
+    }
+  
+    try {
+      const response = await fetch(`http://localhost:5006/api/submit-form/${form.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        console.log("✅ Form submitted successfully!", result);
+        alert("✅ Form submitted successfully!");
+        setSubmitted(true);
+      } else {
+        console.error("❌ Form submission error:", result.error);
+        alert("❌ Failed to submit form: " + result.error);
+      }
+    } catch (error) {
+      console.error("❌ Network error:", error);
+      alert("❌ Network error. Please try again later.");
     }
   };
+  
 
   // ✅ Handle PDF Generation
   const handleDownloadPDF = () => {
