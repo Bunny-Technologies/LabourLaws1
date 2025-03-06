@@ -14,72 +14,37 @@ const FactoriesFormPage = () => {
   // ✅ Form Structure
   const formFields = {
     1: [
-      { name: "system_description", label: "Description of System", type: "text", required: true },
-      { name: "hood_serial", label: "Serial No. of Hood", type: "text", required: true },
-      { name: "contaminant", label: "Contaminant Captured", type: "text", required: true },
-      { name: "capture_velocity", label: "Capture Velocities (Design & Actual)", type: "text", required: true },
-      { name: "volume_exhausted", label: "Volume Exhausted at Hood", type: "number", required: true },
-      { name: "static_pressure", label: "Hood Static Pressure", type: "number", required: true },
-      { name: "pressure_drop_joints", label: "Total Pressure Drop at Joints", type: "number", required: true },
-      { name: "pressure_drop_system", label: "Total Pressure Drop at Other System Points", type: "number", required: true },
-      { name: "transport_velocity", label: "Transport Velocity in Dust/Fume", type: "number", required: true },
-      { name: "air_cleaning_device_type", label: "Air Cleaning Device - Type Used", type: "text", required: true },
-      { name: "air_cleaning_velocity_inlet", label: "Air Cleaning Device - Velocity at Inlet", type: "number", required: true },
-      { name: "air_cleaning_static_pressure", label: "Air Cleaning Device - Static Pressure at Inlet", type: "number", required: true },
-      { name: "air_cleaning_velocity_outlet", label: "Air Cleaning Device - Velocity at Outlet", type: "number", required: true },
-      { name: "fan_type", label: "Fan - Type Used", type: "text", required: true },
-      { name: "fan_volume", label: "Fan - Volume Handled", type: "number", required: true },
-      { name: "fan_static_pressure", label: "Fan - Static Pressures", type: "number", required: true },
-      { name: "fan_pressure_drop", label: "Fan - Pressure Drop at Outlet", type: "number", required: true },
-      { name: "fan_motor_type", label: "Fan Motor Type", type: "text", required: true },
-      { name: "fan_motor_speed", label: "Fan Motor Speed & Horse Power", type: "text", required: true },
-      { name: "defects", label: "Particulars of Defects (if any)", type: "text", required: false },
-      { name: "examiner_name", label: "Examiner's Name", type: "text", required: true },
-      { name: "qualification", label: "Examiner's Qualification", type: "text", required: true },
-      { name: "address", label: "Examiner's Address", type: "text", required: true },
-      { name: "date", label: "Date of Examination", type: "date", required: true },
+      { name: "factory_name", label: "Factory Name", type: "text", required: true },
+  { name: "factory_address", label: "Factory Address", type: "text", required: true },
+  { name: "date_of_test", label: "Date of Test", type: "date", required: true },
+  { name: "location_extraction", label: "Location of Extraction System", type: "text", required: true },
+  { name: "test_conducted_by", label: "Test Conducted By", type: "text", required: true },
+  { name: "test_results", label: "Test Results", type: "text", required: true },
+  { name: "observations", label: "Observations", type: "text", required: false },
+  { name: "compliance_status", label: "Compliance Status", type: "select", required: true, options: ["Compliant", "Non-Compliant", "Pending"] },
+  { name: "remarks", label: "Remarks", type: "textarea", required: false },
     ],
     2: [ // Form 29 - Register of Accidents
-        { name: "serial_number", label: "Serial Number", type: "number", required: true },
-        { name: "date_time_notice", label: "Date & Time of Notice", type: "datetime-local", required: true },
-        { name: "name_serial_person", label: "Name & Serial Number of Person Involved", type: "text", required: true },
-        { name: "register_type", label: "Register Type (Adult/Child)", type: "text", required: true },
-        { name: "esic_insurance_number", label: "ESIC Insurance Number", type: "text", required: true },
-        { name: "date_of_injury", label: "Date of Injury/Dangerous Occurrence", type: "date", required: true },
-        { name: "injury_occurrence", label: "Nature of Injury/Dangerous Occurrence", type: "text", required: true },
-        { name: "cause_of_accident", label: "Cause of Accident/Major Accident/Dangerous Occurrence", type: "text", required: true },
-        { name: "location", label: "Time & Place of Accident", type: "text", required: true },
-        { name: "task_performed", label: "What the Injured Person was Doing at the Time", type: "text", required: true },
-        { name: "person_notified", label: "Name of the Person Giving the Notice", type: "text", required: true },
-        { name: "witness_1", label: "Witness 1 (Name, Address, Occupation)", type: "text", required: true },
-        { name: "witness_2", label: "Witness 2 (Name, Address, Occupation)", type: "text", required: true },
-        { name: "return_date", label: "Date of Return to Work", type: "date", required: false },
-        { name: "absence_days", label: "Number of Days Absent (Including Holidays & Off Days)", type: "number", required: false },
-        { name: "entry_person", label: "Signature & Designation of Person Making Entry", type: "text", required: true },
-        { name: "entry_date", label: "Date of Entry", type: "date", required: true },
+      { name: "date_of_accident", label: "Date of Accident", type: "date", required: true },
+      { name: "injured_name", label: "Name of Injured", type: "text", required: true },
+      { name: "injured_age", label: "Age", type: "number", required: true, min: 1 },
+      { name: "injured_sex", label: "Sex", type: "select", required: true, options: ["Male", "Female", "Other"] },
+      { name: "occupation", label: "Occupation", type: "text", required: true },
+      { name: "nature_of_injury", label: "Nature of Injury", type: "text", required: true },
+      { name: "cause_of_accident", label: "Cause of Accident", type: "text", required: true },
+      { name: "action_taken", label: "Action Taken", type: "textarea", required: false },
+      { name: "remarks", label: "Remarks", type: "textarea", required: false },
     ],
     3: [
-        { name: "serial_number", label: "Serial Number in Register of Adult Workers", type: "text", required: true },
-        { name: "worker_name", label: "Name of the Person Examined", type: "text", required: true },
-        { name: "father_name", label: "Father’s Name", type: "text", required: true },
-        { name: "sex", label: "Sex", type: "text", required: true },
-        { name: "residence", label: "Residence", type: "text", required: true },
-        { name: "dob", label: "Date of Birth (if available)", type: "date", required: false },
-        { name: "factory_name", label: "Name & Address of the Factory", type: "text", required: true },
-        { name: "employment_status", label: "The Worker is Employed/Proposed", type: "text", required: true },
-        { name: "hazardous_process", label: "Hazardous Process", type: "text", required: true },
-        { name: "dangerous_operation", label: "Dangerous Operation", type: "text", required: true },
-        { name: "identification_marks", label: "Identification Marks", type: "text", required: true },
-        { name: "ascertained_age", label: "Age Ascertained from Examination", type: "number", required: true },
-        { name: "fitness_status", label: "Fit for Employment?", type: "radio", options: ["Fit", "Unfit"], required: true },
-        { name: "unfitness_reason", label: "Reason for Unfitness (If Applicable)", type: "text", required: false },
-        { name: "previous_certificate_serial", label: "Serial Number of Previous Certificate", type: "text", required: false },
-        { name: "medical_officer_signature", label: "Factory Medical Officer Signature", type: "text", required: true },
-        { name: "factory_stamp", label: "Stamp of Factory Medical Officer", type: "text", required: true },
-        { name: "examination_date", label: "Date of Examination", type: "date", required: true },
-        { name: "certifying_surgeon_reference", label: "Certifying Surgeon Reference (If Unfit)", type: "text", required: false },
-        { name: "unfit_period", label: "Period Considered Unfit for Work", type: "text", required: false },
-        { name: "symptoms_observed", label: "Signs & Symptoms Observed During Examination", type: "text", required: false },
+      { name: "Name_of_Worker", label: "Name of Worker", type: "text", required: true },
+      { name: "guardian_name", label: "Father's/Husband's Name", type: "text", required: true },
+      { name: "worker_age", label: "Age", type: "number", required: true, min: 14 }, // Assuming minimum working age is 14
+      { name: "worker_sex", label: "Sex", type: "select", required: true, options: ["Male", "Female", "Other"] },
+      { name: "factory_name", label: "Name of Factory", type: "text", required: true },
+      { name: "factory_address", label: "Address of Factory", type: "textarea", required: true },
+      { name: "employment_process", label: "Process in which Employed", type: "text", required: true },
+      { name: "date_of_issue", label: "Date of Issue", type: "date", required: true },
+      { name: "certifying_surgeon", label: "Certifying Surgeon Name", type: "text", required: true },
     ],
     4: [
         { name: "factory_name", label: "Name of the Factory", type: "text", required: true },
@@ -240,13 +205,16 @@ const FactoriesFormPage = () => {
     }
   
     try {
-      const response = await fetch(`http://localhost:5006/api/submit-form/${form.id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `http://localhost:5006/api/submit-form/factories_act/${form.id}`, // ✅ Add category
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
   
       const result = await response.json();
   
@@ -277,106 +245,100 @@ const FactoriesFormPage = () => {
     let subtitle = "";
     let fileName = "";
 
-    // Define form-specific titles and filenames
     switch (form.id) {
-        case 1:
+        case 1: // FORM 26-A - DUST/FUME EXTRACTION SYSTEM REPORT
             title = "FORM NO. 26-A";
-            subtitle = "Dust/Fume Extraction System Report";
-            fileName = "Dust_Fume_Report.pdf";
+            subtitle = "Test Report: Dust/Fume Extraction System";
+            fileName = "Dust_Fume_Extraction_System_Report.pdf";
+
+            doc.text(title, 105, 15, null, null, "center");
+            doc.setFontSize(12);
+            doc.text(subtitle, 105, 25, null, null, "center");
+
+            let y26 = 40;
+            const dustFumeFields = [
+                "Description of system", "Serial No. of Hood", "Contaminant captured",
+                "Capture Velocities (Design & Actual)", "Volume Exhausted at Hood",
+                "Hood Static Pressure", "Total Pressure Drop at Joints", "Transport Velocity in Dust/Fume",
+                "Air Cleaning Device Type", "Velocity at Inlet", "Fan Type Used",
+                "Fan Volume Handled", "Fan Static Pressures", "Fan Motor Speed & Horse Power",
+                "Defects (if any)", "Examiner's Name", "Qualification", "Address", "Date of Examination"
+            ];
+
+            dustFumeFields.forEach(field => {
+                doc.text(`${field}: ${formData[field.toLowerCase().replace(/\s+/g, '_')] || "N/A"}`, 20, y26);
+                y26 += 10;
+            });
+
+            doc.text("I certify that on this date, I thoroughly examined the system and confirm the details provided.", 20, y26 + 10);
             break;
-        case 2:
-            title = "FORM 29 - REGISTER OF ACCIDENTS";
-            subtitle = "Accident Reporting & Investigation";
+
+        case 2: // FORM 29 - REGISTER OF ACCIDENTS
+            title = "FORM NO. 29";
+            subtitle = "Register of Accidents, Major Accidents, and Dangerous Occurrences";
             fileName = "Register_of_Accidents.pdf";
+
+            doc.text(title, 105, 15, null, null, "center");
+            doc.setFontSize(12);
+            doc.text(subtitle, 105, 25, null, null, "center");
+
+            let y29 = 40;
+            const accidentFields = [
+                "Serial Number", "Date & Time of Notice", "Name & Serial Number of Person",
+                "Register Type (Adult/Child)", "ESIC Insurance Number", "Date of Injury",
+                "Nature of Injury/Dangerous Occurrence", "Cause of Accident",
+                "Time & Place of Accident", "Task at the Time", "Person Notified",
+                "Witness 1", "Witness 2", "Return to Work Date", "Days Absent", "Entry Person", "Entry Date"
+            ];
+
+            accidentFields.forEach(field => {
+                doc.text(`${field}: ${formData[field.toLowerCase().replace(/\s+/g, '_')] || "N/A"}`, 20, y29);
+                y29 += 10;
+            });
+
+            doc.text("I certify that the above accident was reported correctly and necessary actions have been taken.", 20, y29 + 10);
             break;
-        case 3:
-            title = "FORM 33 - CERTIFICATE OF FITNESS";
-            subtitle = "Issued Under Factories Act, 1948";
+
+        case 3: // FORM 33 - CERTIFICATE OF FITNESS
+            title = "FORM NO. 33";
+            subtitle = "Certificate of Fitness for Employment in Hazardous Processes";
             fileName = "Certificate_of_Fitness.pdf";
+
+            doc.text(title, 105, 15, null, null, "center");
+            doc.setFontSize(12);
+            doc.text(subtitle, 105, 25, null, null, "center");
+
+            let y33 = 40;
+            const fitnessFields = [
+                "Serial Number in Register of Adult Workers", "Name of Person Examined", "Father’s Name",
+                "Sex", "Residence", "Date of Birth", "Factory Name & Address", "Employment Status",
+                "Hazardous Process", "Dangerous Operation", "Identification Marks",
+                "Age Ascertained", "Medical Officer Signature", "Factory Stamp",
+                "Examination Date", "Certifying Surgeon Reference", "Unfit Period", "Symptoms Observed"
+            ];
+
+            fitnessFields.forEach(field => {
+                doc.text(`${field}: ${formData[field.toLowerCase().replace(/\s+/g, '_')] || "N/A"}`, 20, y33);
+                y33 += 10;
+            });
+
+            doc.text("This certificate is issued as per regulations under the Factories Act.", 20, y33 + 10);
             break;
-        case 4:
-            title = "FORM 1 - APPLICATION FOR PERMISSION";
-            subtitle = "To Construct/Extend a Factory";
-            fileName = "Application_for_Permission.pdf";
-            break;
-        case 5:
-            title = "FORM 2 - NOTICE OF OCCUPATION";
-            subtitle = "Factories Act, 1948 Compliance";
-            fileName = "Notice_of_Occupation.pdf";
-            break;
-        case 6:
-            title = "FORM 3 - REGISTER OF ADULT WORKERS";
-            subtitle = "Record of Adult Workers";
-            fileName = "Register_of_Adult_Workers.pdf";
-            break;
-        case 7:
-            title = "FORM 4 - REGISTER OF CHILD WORKERS";
-            subtitle = "Details of Employed Child Workers";
-            fileName = "Register_of_Child_Workers.pdf";
-            break;
-        case 8:
-            title = "FORM 5 - CERTIFICATE OF FITNESS FOR YOUNG WORKERS";
-            subtitle = "Factories Act Compliance Document";
-            fileName = "Certificate_of_Fitness_Young_Workers.pdf";
-            break;
-        case 9:
-            title = "FORM 10 - REGISTER OF LEAVE WITH WAGES";
-            subtitle = "Employee Leave Tracking Record";
-            fileName = "Register_of_Leave_with_Wages.pdf";
-            break;
-        case 10:
-            title = "FORM 11 - HEALTH REGISTER";
-            subtitle = "Worker Health Status Record";
-            fileName = "Health_Register.pdf";
-            break;
-        case 11:
-            title = "FORM 18 - REPORT OF DANGEROUS OCCURRENCES";
-            subtitle = "Incident Documentation";
-            fileName = "Report_of_Dangerous_Occurrences.pdf";
-            break;
-        case 12:
-            title = "FORM 20 - HUMIDITY REGISTER";
-            subtitle = "Humidity Control Records";
-            fileName = "Humidity_Register.pdf";
-            break;
-        case 13:
-            title = "FORM 21 - REGISTER OF WHITEWASHING & REPAIRS";
-            subtitle = "Factory Maintenance Report";
-            fileName = "Register_of_Whitewashing_and_Repairs.pdf";
-            break;
+
         default:
             title = "FACTORY FORM";
             subtitle = "Generated Report";
             fileName = "Factory_Form_Report.pdf";
+            doc.text(title, 105, 15, null, null, "center");
+            doc.text(subtitle, 105, 25, null, null, "center");
+            doc.text("No specific format found for this form.", 20, 40);
             break;
     }
 
-    // Formatting Header
-    doc.setTextColor(0, 0, 139); // Dark Blue
-    doc.text(title, 105, 20, null, null, "center");
-
-    doc.setFontSize(12);
-    doc.setTextColor(50);
-    doc.text(subtitle, 105, 30, null, null, "center");
-
-    // Formatting the "Generated Form Data" section
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Generated Form Data:", 20, 50);
-
-    let y = 60;
-    doc.setFontSize(12);
-    formFields[form.id]?.forEach((field) => {
-        doc.setFont("helvetica", "normal");
-        doc.text(`${field.label}:`, 20, y);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${formData[field.name] || "N/A"}`, 100, y);
-        y += 10;
-    });
-
-    // Save the PDF with a dynamic filename
+    // Save the PDF
     doc.save(fileName);
 };
+
 
   return (
     <div className="factories-form-page">
