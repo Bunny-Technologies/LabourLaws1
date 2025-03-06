@@ -14,31 +14,26 @@ const ContractLabourFormPage = () => {
   // ✅ Form Structure
   const formFields = {
     1: [
-      { name: "principal_employer_name", label: "Name of the Principal Employer", type: "text", required: true },
-      { name: "establishment_name", label: "Name of the Establishment", type: "text", required: true },
-      { name: "contractor_name", label: "Name of Contractor", type: "text", required: true },
-      { name: "nature_of_work", label: "Nature of Work on Contract", type: "text", required: true },
-      { name: "contract_location", label: "Location of Contract Work", type: "text", required: true },
-      { name: "contract_start_date", label: "Contract Start Date", type: "date", required: true },
-      { name: "contract_end_date", label: "Contract End Date", type: "date", required: true },
-      { name: "max_workers", label: "Maximum No of Workmen Employed by Contractor", type: "number", required: true }
+      { name: "Name_of_Contractor", label: "Name of Contractor", type: "text", required: true },
+      { name: "Contractor_Address", label: "Contractor Address", type: "textarea", required: true },
+      { name: "Nature_of_Work", label: "Nature of Work", type: "text", required: true },
+      { name: "Location_of_Work", label: "Location of Work", type: "text", required: true },
+      { name: "Date_of_Contract_Start", label: "Date of Contract Start", type: "date", required: true },
+      { name: "Date_of_Contract_End", label: "Date of Contract End", type: "date", required: true },
+      { name: "Maximum_No_of_Workers", label: "Maximum No. of Workers", type: "number", required: true, min: 1 },
+      { name: "Remarks", label: "Remarks", type: "textarea", required: false },
   ],
   2: [ 
-    { name: "contractor_name", label: "Name and Address of Contractor", type: "text", required: true },
-    { name: "establishment_name", label: "Name and Address of Establishment", type: "text", required: true },
-    { name: "nature_of_work", label: "Nature and Location of Work", type: "text", required: true },
-    { name: "principal_employer_name", label: "Name and Address of Principal Employer", type: "text", required: true },
-    { name: "serial_number", label: "Serial Number", type: "number", required: true },
-    { name: "worker_name", label: "Name of Worker", type: "text", required: true },
-    { name: "father_husband_name", label: "Father’s/Husband’s Name", type: "text", required: true },
-    { name: "employment_designation", label: "Nature of Employment/Designation", type: "text", required: true },
-    { name: "wage_period", label: "Wage Period and Wages Payable", type: "text", required: true },
-    { name: "advance_date_amount", label: "Date and Amount of Advance Given", type: "text", required: true },
-    { name: "advance_purpose", label: "Purpose(s) for Which Advance Made", type: "text", required: true },
-    { name: "repayment_installments", label: "Number of Installments for Repayment", type: "number", required: true },
-    { name: "installment_details", label: "Date and Amount of Each Installment Repaid", type: "text", required: true },
-    { name: "last_installment_date", label: "Date on Which Last Installment Was Repaid", type: "date", required: true },
-    { name: "remarks", label: "Remarks", type: "textarea", required: false }
+    { name: "Name_of_Workman", label: "Name of Workman", type: "text", required: true },
+    { name: "Fathers_Husbands_Name", label: "Father's/Husband's Name", type: "text", required: true },
+    { name: "Designation", label: "Designation", type: "text", required: true },
+    { name: "Wage_Period", label: "Wage Period", type: "text", required: true },
+    { name: "Amount_of_Advance_Given", label: "Amount of Advance Given (₹)", type: "number", required: true, min: 0 },
+    { name: "Purpose_of_Advance", label: "Purpose of Advance", type: "text", required: true },
+    { name: "Date_of_Recovery", label: "Date of Recovery", type: "date", required: true },
+    { name: "Amount_Recovered", label: "Amount Recovered (₹)", type: "number", required: true, min: 0 },
+    { name: "Balance_Amount", label: "Balance Amount (₹)", type: "number", required: true, min: 0 },
+    { name: "Remarks", label: "Remarks", type: "textarea", required: false },
   ],
   3: [ 
     { name: "contractor_name", label: "Name and Address of Contractor", type: "text", required: true },
@@ -130,26 +125,49 @@ const ContractLabourFormPage = () => {
 
 
   // ✅ Handle Form Submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let validationErrors = {};
-
-    // Validate all fields before submission
+  
+    // ✅ Validate fields before submitting
     formFields[form.id]?.forEach((field) => {
       const errorMsg = validateField(field.name, formData[field.name]);
       if (errorMsg) validationErrors[field.name] = errorMsg;
     });
-
-    console.log("Validation Errors:", validationErrors); // Debugging
-
-    if (Object.keys(validationErrors).length === 0) {
-      setSubmitted(true);
-      alert("✅ Form submitted successfully! Now you can download the PDF.");
-    } else {
+  
+    if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      return;
     }
-};
+  
+    setSubmitted(true);
+  
+    try {
+      const response = await fetch(`http://localhost:5006/api/submit-form/contract_labour_act/${form.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });      
 
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert("✅ Form submitted successfully!");
+        console.log("📌 Server Response:", data);
+      } else {
+        alert(`❌ Submission Failed: ${data.error}`);
+        console.error("❌ Error:", data.error);
+      }
+    } catch (error) {
+      alert("❌ Network error! Please try again.");
+      console.error("❌ Network Error:", error);
+    }
+  };
+  
+  
 
   // ✅ Handle PDF Generation
   const handleDownloadPDF = () => {

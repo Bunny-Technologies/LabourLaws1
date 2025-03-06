@@ -1,85 +1,95 @@
-/* ✅ General Styling */
-.factories-forms-container {
-    max-width: 800px;
-    margin: 40px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-/* ✅ Heading */
-.form-heading {
-    font-size: 22px;
-    color: #002b5b;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-/* ✅ Table Styles */
-.factories-forms-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.factories-forms-table th,
-.factories-forms-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.factories-forms-table th {
+/* General Styling */
+body {
+    font-family: "Merriweather", serif;
+    background: linear-gradient(to right, #e0e7ff, #c7d2fe);
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Header with Images */
+  .govt-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background: #002b5b;
     color: white;
+    padding: 10px 20px;
+    border-bottom: 4px solid #ffcc00;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Header Images Styling */
+  .header-image {
+    height: 70px;
+    width: auto;
+  }
+  
+  /* Centered Title */
+  .govt-header h1 {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 28px;
     font-weight: bold;
-}
-
-/* ✅ Form Row */
-.form-row td {
-    font-size: 16px;
-    padding: 10px;
-}
-
-/* ✅ Clickable Form */
-.clickable-form {
-    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+  
+  /* Header Navigation */
+  .govt-header nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  
+  .govt-header nav button {
+    background: white;
     color: #002b5b;
+    padding: 12px 18px;
+    border: 2px solid #002b5b;
+    cursor: pointer;
     font-weight: bold;
-    text-decoration: underline;
-    transition: color 0.3s ease;
-}
-
-.clickable-form:hover {
-    color: #ffcc00;
-}
-
-/* ✅ Download Button */
-.download-btn {
-    display: inline-block;
-    padding: 6px 10px;
-    background: #28a745;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.download-btn:hover {
-    background: #218838;
-}
-
-/* ✅ Disabled Forms */
-.disabled-form {
-    color: #999;
-    cursor: not-allowed;
-    text-decoration: none;
-}
-
-/* ✅ Form Container */
-.factories-form-page {
+    text-transform: uppercase;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .govt-header nav button:hover {
+    background: #ffcc00;
+    color: #002b5b;
+    transform: scale(1.05);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Content Layout */
+  .govt-content {
+    display: flex;
+    margin: 20px auto;
+    max-width: 1200px;
+    gap: 20px;
+  }
+  
+  /* Sidebar */
+  .govt-sidebar {
+    width: 300px;
+    background: #f1f1f1;
+    padding: 20px;
+    border-right: 3px solid #ddd;
+    box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .govt-sidebar h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #002b5b;
+    margin-bottom: 10px;
+  }
+  
+  /* Factories Form Page */
+  .factories-form-page {
     max-width: 800px;
     margin: 30px auto;
     padding: 30px;
@@ -88,12 +98,12 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     font-family: "Arial", sans-serif;
     border: 1px solid #ccc;
-    overflow-y: auto; /* ✅ Allows vertical scroll */
-    overflow-x: hidden; /* ✅ Fixes horizontal scrolling */
-}
-
-/* ✅ Form Title */
-.factories-form h2 {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  /* Form Title */
+  .factories-form h2 {
     text-align: center;
     color: #002f4b;
     font-weight: bold;
@@ -101,48 +111,49 @@
     margin-bottom: 20px;
     border-bottom: 2px solid #002f4b;
     padding-bottom: 10px;
-}
-
-/* ✅ Form Group */
-.form-group {
+  }
+  
+  /* Form Group */
+  .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
-}
-
-.form-group label {
+  }
+  
+  .form-group label {
     font-weight: bold;
     color: #333;
     margin-bottom: 5px;
-}
-
-/* ✅ Inputs */
-.form-group input,
-.form-group select,
-.form-group textarea {
+  }
+  
+  /* Inputs */
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+    box-sizing: border-box;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
     border-color: #005f73;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 95, 115, 0.5);
-}
-
-/* ✅ Buttons */
-.submit-btn,
-.download-btn {
+  }
+  
+  /* Buttons */
+  .submit-btn,
+  .download-btn {
     width: 100%;
     margin-top: 15px;
-}
-
-.submit-btn {
+  }
+  
+  .submit-btn {
     background: #002f4b;
     color: white;
     padding: 12px;
@@ -153,13 +164,13 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
-}
-
-.submit-btn:hover {
+  }
+  
+  .submit-btn:hover {
     background: #005f73;
-}
-
-.download-btn {
+  }
+  
+  .download-btn {
     background: #28a745;
     color: white;
     padding: 12px;
@@ -170,27 +181,23 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
-}
-
-.download-btn:hover {
+  }
+  
+  .download-btn:hover {
     background: #218838;
-}
-
-/* ✅ Scrollbar Fix */
-.factories-form-page::-webkit-scrollbar {
+  }
+  
+  /* Scrollbar Fix */
+  .factories-form-page::-webkit-scrollbar {
     width: 8px;
-}
-
-.factories-form-page::-webkit-scrollbar-thumb {
+  }
+  
+  .factories-form-page::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 4px;
-}
-
-.factories-form-page::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-.submit-btn:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    opacity: 0.7;
   }
+  
+  .factories-form-page::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  

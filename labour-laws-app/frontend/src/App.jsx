@@ -9,7 +9,10 @@ import ContractLabourFormsList from "./ContractLabourAct/ContractLabourFormsList
 import ContractLabourFormPage from "./ContractLabourAct/ContractLabourFormPage";
 import MaternityBenefitFormsList from "./MaternityBenefitAct/MaternityBenefitFormsList";
 import MaternityBenefitFormPage from "./MaternityBenefitAct/MaternityBenefitFormPage";
-
+import PaymentWagesFormsList from "./PaymentWagesAct/PaymentWagesFormsList";
+import PaymentWagesFormPage from "./PaymentWagesAct/PaymentWagesFormPage";
+import WorkmenCompensationFormsList from "./WorkmenCompensationAct/WorkmenCompensationFormsList";
+import WorkmenCompensationFormPage from "./WorkmenCompensationAct/WorkmenCompensationFormPage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -40,6 +43,10 @@ const App = () => {
           <Route path="/contract-labour-act-1970/form/:id" element={<ContractLabourFormPage />} />
           <Route path="/maternity-benefit-act-1961" element={<MaternityBenefitFormsList />} />
           <Route path="/maternity-benefit-act/form/:id" element={<MaternityBenefitFormPage />} />
+          <Route path="/payment-of-wages-act-1936" element={<PaymentWagesFormsList />} />
+          <Route path="/payment-of-wages-act/form/:id" element={<PaymentWagesFormPage />} />
+          <Route path="/workmen-compensation-act-1923" element={<WorkmenCompensationFormsList />} />
+          <Route path="/workmen-compensation-act/form/:id" element={<WorkmenCompensationFormPage />} />
 
         </>
       ) : (
