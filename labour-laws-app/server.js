@@ -66,6 +66,21 @@ app.get("/api/forms/:departmentId", (req, res) => {
   });
 });
 
+// ✅ Get Forms by Department ID
+app.get("/api/forms/:departmentId", (req, res) => {
+  const departmentId = req.params.departmentId;
+
+  const sql = "SELECT id, form_name FROM forms WHERE department_id = ?";
+  db.query(sql, [departmentId], (err, results) => {
+    if (err) {
+      console.error("❌ Error fetching forms:", err);
+      return res.status(500).json({ error: "❌ Database error" });
+    }
+
+    res.json(results);
+  });
+});
+
 // ✅ Mapping: Forms under Categories
 const formTables = {
   factories_act: {

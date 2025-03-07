@@ -46,26 +46,7 @@ const FactoriesFormPage = () => {
       { name: "date_of_issue", label: "Date of Issue", type: "date", required: true },
       { name: "certifying_surgeon", label: "Certifying Surgeon Name", type: "text", required: true },
 
-        { name: "serial_number", label: "Serial Number in Register of Adult Workers", type: "text", required: true },
-        { name: "worker_name", label: "Name of the Person Examined", type: "text", required: true },
-        { name: "father_name", label: "Father’s Name", type: "text", required: true },
-        { name: "sex", label: "Sex", type: "text", required: true },
-        { name: "residence", label: "Residence", type: "text", required: true },
-        { name: "dob", label: "Date of Birth (if available)", type: "date", required: false },
-        { name: "factory_name", label: "Name & Address of the Factory", type: "text", required: true },
-        { name: "employment_status", label: "The Worker is Employed/Proposed", type: "text", required: true },
-        { name: "hazardous_process", label: "Hazardous Process", type: "text", required: true },
-        { name: "dangerous_operation", label: "Dangerous Operation", type: "text", required: true },
-        { name: "identification_marks", label: "Identification Marks", type: "text", required: true },
-        { name: "ascertained_age", label: "Age Ascertained from Examination", type: "number", required: true },
-        { name: "previous_certificate_serial", label: "Serial Number of Previous Certificate", type: "text", required: false },
-        { name: "medical_officer_signature", label: "Factory Medical Officer Signature", type: "text", required: true },
-        { name: "factory_stamp", label: "Stamp of Factory Medical Officer", type: "text", required: true },
-        { name: "examination_date", label: "Date of Examination", type: "date", required: true },
-        { name: "certifying_surgeon_reference", label: "Certifying Surgeon Reference (If Unfit)", type: "text", required: false },
-        { name: "unfit_period", label: "Period Considered Unfit for Work", type: "text", required: false },
-        { name: "symptoms_observed", label: "Signs & Symptoms Observed During Examination", type: "text", required: false },
-    ],
+      ],
     4: [
         { name: "factory_name", label: "Name of the Factory", type: "text", required: true },
         { name: "applicant_name", label: "Name of the Applicant", type: "text", required: true },
@@ -266,7 +247,7 @@ const FactoriesFormPage = () => {
     let fileName = "";
 
     switch (form.id) {
-        case 1: // FORM 26-A - DUST/FUME EXTRACTION SYSTEM REPORT
+        case 1: // FORM 26-A - Dust/Fume Extraction System Report
             title = "FORM NO. 26-A";
             subtitle = "Test Report: Dust/Fume Extraction System";
             fileName = "Dust_Fume_Extraction_System_Report.pdf";
@@ -277,23 +258,20 @@ const FactoriesFormPage = () => {
 
             let y26 = 40;
             const dustFumeFields = [
-                "Description of system", "Serial No. of Hood", "Contaminant captured",
-                "Capture Velocities (Design & Actual)", "Volume Exhausted at Hood",
-                "Hood Static Pressure", "Total Pressure Drop at Joints", "Transport Velocity in Dust/Fume",
-                "Air Cleaning Device Type", "Velocity at Inlet", "Fan Type Used",
-                "Fan Volume Handled", "Fan Static Pressures", "Fan Motor Speed & Horse Power",
-                "Defects (if any)", "Examiner's Name", "Qualification", "Address", "Date of Examination"
+                "factory_name", "factory_address", "date_of_test",
+                "location_extraction", "test_conducted_by", "test_results",
+                "observations", "compliance_status", "remarks"
             ];
 
             dustFumeFields.forEach(field => {
-                doc.text(`${field}: ${formData[field.toLowerCase().replace(/\s+/g, '_')] || "N/A"}`, 20, y26);
+                doc.text(`${formFields[1].find(f => f.name === field)?.label || field}: ${formData[field] || "N/A"}`, 20, y26);
                 y26 += 10;
             });
 
             doc.text("I certify that on this date, I thoroughly examined the system and confirm the details provided.", 20, y26 + 10);
             break;
 
-        case 2: // FORM 29 - REGISTER OF ACCIDENTS
+        case 2: // FORM 29 - Register of Accidents
             title = "FORM NO. 29";
             subtitle = "Register of Accidents, Major Accidents, and Dangerous Occurrences";
             fileName = "Register_of_Accidents.pdf";
@@ -304,22 +282,20 @@ const FactoriesFormPage = () => {
 
             let y29 = 40;
             const accidentFields = [
-                "Serial Number", "Date & Time of Notice", "Name & Serial Number of Person",
-                "Register Type (Adult/Child)", "ESIC Insurance Number", "Date of Injury",
-                "Nature of Injury/Dangerous Occurrence", "Cause of Accident",
-                "Time & Place of Accident", "Task at the Time", "Person Notified",
-                "Witness 1", "Witness 2", "Return to Work Date", "Days Absent", "Entry Person", "Entry Date"
+                "date_of_accident", "injured_name", "injured_age",
+                "injured_sex", "occupation", "nature_of_injury",
+                "cause_of_accident", "action_taken", "remarks"
             ];
 
             accidentFields.forEach(field => {
-                doc.text(`${field}: ${formData[field.toLowerCase().replace(/\s+/g, '_')] || "N/A"}`, 20, y29);
+                doc.text(`${formFields[2].find(f => f.name === field)?.label || field}: ${formData[field] || "N/A"}`, 20, y29);
                 y29 += 10;
             });
 
             doc.text("I certify that the above accident was reported correctly and necessary actions have been taken.", 20, y29 + 10);
             break;
 
-        case 3: // FORM 33 - CERTIFICATE OF FITNESS
+        case 3: // FORM 33 - Certificate of Fitness
             title = "FORM NO. 33";
             subtitle = "Certificate of Fitness for Employment in Hazardous Processes";
             fileName = "Certificate_of_Fitness.pdf";
@@ -330,20 +306,18 @@ const FactoriesFormPage = () => {
 
             let y33 = 40;
             const fitnessFields = [
-                "Serial Number in Register of Adult Workers", "Name of Person Examined", "Father’s Name",
-                "Sex", "Residence", "Date of Birth", "Factory Name & Address", "Employment Status",
-                "Hazardous Process", "Dangerous Operation", "Identification Marks",
-                "Age Ascertained", "Medical Officer Signature", "Factory Stamp",
-                "Examination Date", "Certifying Surgeon Reference", "Unfit Period", "Symptoms Observed"
+                "Name_of_Worker", "guardian_name", "worker_age",
+                "worker_sex", "factory_name", "factory_address",
+                "employment_process", "date_of_issue", "certifying_surgeon"
             ];
 
             fitnessFields.forEach(field => {
-                doc.text(`${field}: ${formData[field.toLowerCase().replace(/\s+/g, '_')] || "N/A"}`, 20, y33);
+                doc.text(`${formFields[3].find(f => f.name === field)?.label || field}: ${formData[field] || "N/A"}`, 20, y33);
                 y33 += 10;
             });
 
             doc.text("This certificate is issued as per regulations under the Factories Act.", 20, y33 + 10);
-            break;
+            break;s
 
         default:
             title = "FACTORY FORM";

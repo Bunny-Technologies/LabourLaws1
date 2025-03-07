@@ -12,21 +12,29 @@ const Login = ({ setIsAuthenticated }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-  
-    // Hardcoded admin credentials for now
-    if (username === "admin" && password === "password") {
-      console.log("✅ Login successful (Mocked Authentication)");
-  
-      // Simulate a server response
-      const mockUser = { username: "admin", role: "Administrator" };
-      localStorage.setItem("user", JSON.stringify(mockUser)); // ✅ Store user in localStorage
-  
-      setIsAuthenticated(true); // ✅ Set authentication state
-      navigate("/departments"); // ✅ Redirect after login
-    } else {
-      setError("❌ Invalid username or password");
+
+    try {
+      console.log("🔍 Sending request to backend...");
+      const response = await axios.post("http://localhost:5006/api/login", {
+        username,
+        password,
+      });
+
+      console.log("🔍 Server Response:", response.data);
+
+      if (response.data.message === "✅ Login successful") {
+        localStorage.setItem("user", JSON.stringify(response.data.user)); // ✅ Store user in localStorage
+        setIsAuthenticated(true); // ✅ Set authentication state
+        navigate("/departments"); // ✅ Redirect after login
+      } else {
+        setError("❌ Invalid username or password");
+      }
+    } catch (err) {
+      console.error("❌ API Error:", err);
+      setError("❌ Invalid credentials");
     }
   };
+
   
 
   return (
