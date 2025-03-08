@@ -13,39 +13,87 @@ const FactoriesFormPage = () => {
 
   // ✅ Form Structure
   const formFields = {
-    1: [
-      { name: "factory_name", label: "Factory Name", type: "text", required: true },
-  { name: "factory_address", label: "Factory Address", type: "text", required: true },
-  { name: "date_of_test", label: "Date of Test", type: "date", required: true },
-  { name: "location_extraction", label: "Location of Extraction System", type: "text", required: true },
-  { name: "test_conducted_by", label: "Test Conducted By", type: "text", required: true },
-  { name: "test_results", label: "Test Results", type: "text", required: true },
-  { name: "observations", label: "Observations", type: "text", required: false },
-  { name: "compliance_status", label: "Compliance Status", type: "select", required: true, options: ["Compliant", "Non-Compliant", "Pending"] },
-  { name: "remarks", label: "Remarks", type: "textarea", required: false },
+    1: [//dust and fume
+      { "name": "description_of_system", "label": "Description of System", "type": "textarea", "required": true },
+    
+      { "name": "hood_serial_no", "label": "Hood Serial No.", "type": "text", "required": true },
+      { "name": "contaminant_captured", "label": "Contaminant Captured", "type": "text", "required": true },
+      { "name": "capture_velocity", "label": "Capture Velocities (Design vs Actual)", "type": "text", "required": true },
+      { "name": "volume_exhausted", "label": "Volume Exhausted at Hood", "type": "number", "required": true },
+      { "name": "hood_static_pressure", "label": "Hood Static Pressure", "type": "number", "required": true },
+    
+      { "name": "pressure_drop_joints", "label": "Total Pressure Drop at Joints", "type": "number", "required": true },
+      { "name": "pressure_drop_other", "label": "Total Pressure Drop at Other Points", "type": "text", "required": true },
+    
+      { "name": "transport_velocity", "label": "Transport Velocity in Dust/Fume", "type": "number", "required": true },
+    
+      { "name": "air_cleaning_type", "label": "Air Cleaning Device Type", "type": "text", "required": true },
+      { "name": "air_cleaning_velocity_inlet", "label": "Velocity at Inlet", "type": "number", "required": true },
+      { "name": "air_cleaning_static_pressure", "label": "Static Pressure at Inlet", "type": "number", "required": true },
+      { "name": "air_cleaning_velocity_outlet", "label": "Velocity at Outlet", "type": "number", "required": true },
+    
+      { "name": "fan_type", "label": "Fan Type", "type": "text", "required": true },
+      { "name": "fan_volume_handled", "label": "Fan Volume Handled", "type": "number", "required": true },
+      { "name": "fan_static_pressure", "label": "Fan Static Pressure", "type": "number", "required": true },
+      { "name": "fan_pressure_drop_outlet", "label": "Pressure Drop at Outlet of Fan", "type": "number", "required": true },
+    
+      { "name": "fan_motor_type", "label": "Fan Motor Type", "type": "text", "required": true },
+      { "name": "fan_motor_speed_hp", "label": "Fan Motor Speed and Horsepower", "type": "text", "required": true },
+    
+      { "name": "defects_observed", "label": "Particulars of Defects Observed", "type": "textarea", "required": false },
+    
+      { "name": "certifying_signature", "label": "Certifying Authority Signature", "type": "text", "required": true },
+      { "name": "certifying_qualification", "label": "Certifying Authority Qualification", "type": "text", "required": true },
+      { "name": "certifying_address", "label": "Certifying Authority Address", "type": "textarea", "required": true },
+      { "name": "certification_date", "label": "Certification Date", "type": "date", "required": true },
+    
+      { "name": "company_name", "label": "Company/Association Name", "type": "text", "required": false },
+      { "name": "company_address", "label": "Company/Association Address", "type": "textarea", "required": false }
     ],
+    
     2: [ // Form 29 - Register of Accidents
-      { name: "date_of_accident", label: "Date of Accident", type: "date", required: true },
-      { name: "injured_name", label: "Name of Injured", type: "text", required: true },
-      { name: "injured_age", label: "Age", type: "number", required: true, min: 1 },
-      { name: "injured_sex", label: "Sex", type: "select", required: true, options: ["Male", "Female", "Other"] },
-      { name: "occupation", label: "Occupation", type: "text", required: true },
-      { name: "nature_of_injury", label: "Nature of Injury", type: "text", required: true },
-      { name: "cause_of_accident", label: "Cause of Accident", type: "text", required: true },
-      { name: "action_taken", label: "Action Taken", type: "textarea", required: false },
-      { name: "remarks", label: "Remarks", type: "textarea", required: false },
+      { "name": "serial_number", "label": "Serial Number", "type": "number", "required": true },
+      { "name": "date_time_of_notice", "label": "Date & Time of Notice", "type": "datetime-local", "required": true },
+      { "name": "person_serial_number", "label": "Name and Serial Number of the Person Involved in the Register of Adult/Child Register", "type": "text", "required": true },
+      { "name": "esic_insurance_number", "label": "ESIC Insurance Number", "type": "text", "required": false },
+      { "name": "date", "label": "Date", "type": "date", "required": true },
+      { "name": "time", "label": "Time", "type": "time", "required": true },
+      { "name": "place", "label": "Place", "type": "text", "required": true },
+      { "name": "cause_of_accident", "label": "Cause of Accident/Major Accident/Dangerous Occurrence", "type": "textarea", "required": true },
+      { "name": "nature_of_injury", "label": "Nature of Injury/Dangerous Occurrence", "type": "textarea", "required": true },
+      { "name": "injured_person_action", "label": "What Exactly was the Injured Person, if Any, Doing at that Notice", "type": "textarea", "required": true },
+      { "name": "notice_given_by", "label": "Name of the Person Giving the Notice", "type": "text", "required": true },
+      { "name": "witness_details", "label": "Name, Address, and Occupation of Two Witnesses", "type": "textarea", "required": true },
+      { "name": "return_date", "label": "Date of Return of Injured Person to Work", "type": "date", "required": false },
+      { "name": "days_absent", "label": "Number of Days the Injured Person was Absent from Work Including Holidays and Off Days", "type": "number", "required": true },
+      { "name": "entry_signature", "label": "Signature and Designation of the Person Who Makes the Entry with Date", "type": "text", "required": true }
     ],
     3: [
-      { name: "Name_of_Worker", label: "Name of Worker", type: "text", required: true },
-      { name: "guardian_name", label: "Father's/Husband's Name", type: "text", required: true },
-      { name: "worker_age", label: "Age", type: "number", required: true, min: 14 }, // Assuming minimum working age is 14
-      { name: "worker_sex", label: "Sex", type: "select", required: true, options: ["Male", "Female", "Other"] },
-      { name: "factory_name", label: "Name of Factory", type: "text", required: true },
-      { name: "factory_address", label: "Address of Factory", type: "textarea", required: true },
-      { name: "employment_process", label: "Process in which Employed", type: "text", required: true },
-      { name: "date_of_issue", label: "Date of Issue", type: "date", required: true },
-      { name: "certifying_surgeon", label: "Certifying Surgeon Name", type: "text", required: true },
-
+        { "name": "serial_number", "label": "Serial Number in the Register of Adult Workers", "type": "number", "required": true },
+        { "name": "worker_name", "label": "Name of the Person Examined", "type": "text", "required": true },
+        { "name": "father_name", "label": "Father’s Name", "type": "text", "required": true },
+        { "name": "sex", "label": "Sex", "type": "select", "required": true, "options": ["Male", "Female", "Other"] },
+        { "name": "residence", "label": "Residence", "type": "textarea", "required": true },
+        { "name": "date_of_birth", "label": "Date of Birth (if available)", "type": "date", "required": false },
+        { "name": "factory_name", "label": "Name of the Factory", "type": "text", "required": true },
+        { "name": "factory_address", "label": "Factory Address", "type": "textarea", "required": true },
+        { "name": "employment_status", "label": "The Worker is Employed/Proposed", "type": "select", "required": true, "options": ["Employed", "Proposed"] },
+        { "name": "hazardous_process", "label": "Hazardous Process", "type": "text", "required": false },
+        { "name": "dangerous_operation", "label": "Dangerous Operation", "type": "text", "required": false },
+        { "name": "identification_marks", "label": "Identification Marks", "type": "textarea", "required": false },
+        { "name": "ascertained_age", "label": "Age as Ascertained from Examination", "type": "number", "required": true },
+        { "name": "fitness_status", "label": "Fitness for Employment", "type": "select", "required": true, "options": ["Fit", "Unfit", "Referred for Further Examination"] },
+        { "name": "reason_unfit", "label": "Reason for Being Unfit (if applicable)", "type": "textarea", "required": false },
+        { "name": "referred_to_surgeon", "label": "Referred to Certifying Surgeon", "type": "select", "required": false, "options": ["Yes", "No"] },
+        { "name": "previous_certificate_number", "label": "Serial Number of Previous Certificate", "type": "text", "required": false },
+        { "name": "worker_signature", "label": "Signature or Left Hand Thumb Impression of the Person Examined", "type": "file", "required": false },
+        { "name": "medical_officer_signature", "label": "Signature of the Factory Medical Officer", "type": "text", "required": true },
+        { "name": "medical_officer_stamp", "label": "Stamp of Factory Medical Officer", "type": "file", "required": false },
+        { "name": "examination_date", "label": "Date of Examination", "type": "date", "required": true },
+        { "name": "certificate_extension", "label": "Certificate Extended", "type": "select", "required": false, "options": ["Extended", "Unfit", "Pending"] },
+        { "name": "unfit_period", "label": "Period of Unfitness (if not extended)", "type": "text", "required": false },
+        { "name": "symptoms_observed", "label": "Signs and Symptoms Observed During Examination", "type": "textarea", "required": false },
+        { "name": "medical_officer_final_signature", "label": "Final Signature of the Factory Medical Officer with Date", "type": "text", "required": true }
       ],
     4: [
         { name: "factory_name", label: "Name of the Factory", type: "text", required: true },
@@ -192,189 +240,196 @@ const FactoriesFormPage = () => {
   // ✅ Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     let validationErrors = {};
-  
+
     // Validate all fields before submission
     formFields[form.id]?.forEach((field) => {
-      const errorMsg = validateField(field.name, formData[field.name]);
-      if (errorMsg) validationErrors[field.name] = errorMsg;
+        const errorMsg = validateField(field.name, formData[field.name]);
+        if (errorMsg) validationErrors[field.name] = errorMsg;
     });
-  
+
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
+        setErrors(validationErrors);
+        return;
     }
-  
-    try {
-      const response = await fetch(
-        `http://localhost:5006/api/submit-form/factories_act/${form.id}`, // ✅ Add category
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-  
-      const result = await response.json();
-  
-      if (response.ok) {
-        console.log("✅ Form submitted successfully!", result);
+
+    // ✅ Simulating successful form submission without backend
+    console.log("✅ Form submission simulated (No backend)");
+
+    // ✅ Set submitted to true to enable download
+    setSubmitted(true);
+
+    // ✅ Show success alert only once
+    if (!submitted) {
         alert("✅ Form submitted successfully!");
-        setSubmitted(true);
-      } else {
-        console.error("❌ Form submission error:", result.error);
-        alert("❌ Failed to submit form: " + result.error);
-      }
-    } catch (error) {
-      console.error("❌ Network error:", error);
-      alert("❌ Network error. Please try again later.");
     }
-  };
-  
+};
 
   // ✅ Handle PDF Generation
-  const handleDownloadPDF = () => {
-    if (!submitted) return;
+// ✅ Handle PDF Generation
+const handleDownloadPDF = () => {
+  if (!submitted) return;
 
-    const doc = new jsPDF();
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
+  const doc = new jsPDF();
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
 
-    let title = "";
-    let subtitle = "";
-    let fileName = "";
+  let title = "";
+  let title_line = "";
+  let subtitle = "";
+  let fileName = "";
+  let y = 15; // Start position
 
-    switch (form.id) {
-        case 1: // FORM 26-A - Dust/Fume Extraction System Report
-            title = "FORM NO. 26-A";
-            subtitle = "Test Report: Dust/Fume Extraction System";
-            fileName = "Dust_Fume_Extraction_System_Report.pdf";
+  // ✅ Dynamic Title & File Name based on Form ID
+  switch (form.id) {
+      case 1: // FORM 26-A - Dust/Fume Extraction System Report
+          title = "FORM NO. 26-A";
+          title_line = "(Prescribed under Rule 102)";
+          subtitle = "TEST REPORT: DUST/FUME- EXTRACTION SYSTEM";
+          fileName = "Dust_Fume_Extraction_System_Report.pdf";
+          break;
+      case 2: // FORM 29 - Register of Accidents
+          title = "FORM NO. 29 (Prescribed under Rule 111)";
+          subtitle = "REGISTER OF ACCIDENTS, MAJOR ACCIDENTS, AND DANGEROUS OCCURRENCES";
+          fileName = "Register_of_Accidents.pdf";
+          break;
+      case 3: // FORM 33 - Certificate of Fitness
+          title = "FORM NO. 33 (Prescribed under Rule 68-T and 102)";
+          subtitle = "CERTIFICATE OF FITNESS FOR EMPLOYMENT IN HAZARDOUS PROCESSES";
+          fileName = "Certificate_of_Fitness.pdf";
+          break;
+      default:
+          title = "FACTORY FORM";
+          subtitle = "Generated Report";
+          fileName = "Factory_Form_Report.pdf";
+          break;
+  }
 
-            doc.text(title, 105, 15, null, null, "center");
-            doc.setFontSize(12);
-            doc.text(subtitle, 105, 25, null, null, "center");
+  // ✅ Title & Subtitle
+  y += 10;
+  doc.setFontSize(14);
+  doc.setTextColor(0, 0, 0);
+  doc.text(title, 105, y, null, null, "center");  // Title
 
-            let y26 = 40;
-            const dustFumeFields = [
-                "factory_name", "factory_address", "date_of_test",
-                "location_extraction", "test_conducted_by", "test_results",
-                "observations", "compliance_status", "remarks"
-            ];
+  y += 5; 
+  doc.setFontSize(11);
+  doc.text(title_line, 105, y, null, null, "center");  // Rule Reference
 
-            dustFumeFields.forEach(field => {
-                doc.text(`${formFields[1].find(f => f.name === field)?.label || field}: ${formData[field] || "N/A"}`, 20, y26);
-                y26 += 10;
-            });
+  y += 10;
+  doc.setFontSize(12);
+  doc.setTextColor(50);
+  doc.text(subtitle, 105, y, null, null, "center");  // Subtitle
 
-            doc.text("I certify that on this date, I thoroughly examined the system and confirm the details provided.", 20, y26 + 10);
-            break;
+  // ✅ Table Layout for Form Data
+  let yPosition = 60;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0);
+  const lineSpacing = 8; // Space between rows
 
-        case 2: // FORM 29 - Register of Accidents
-            title = "FORM NO. 29";
-            subtitle = "Register of Accidents, Major Accidents, and Dangerous Occurrences";
-            fileName = "Register_of_Accidents.pdf";
+  // Fetch Fields Dynamically
+  const formFieldsArray = formFields[form.id] || [];
 
-            doc.text(title, 105, 15, null, null, "center");
-            doc.setFontSize(12);
-            doc.text(subtitle, 105, 25, null, null, "center");
+  // ✅ Table Drawing - Label (left) | Value (right)
+  formFieldsArray.forEach((field) => {
+      doc.setFont("helvetica", "bold");
+      doc.text(`${field.label}:`, 20, yPosition);
+      doc.setFont("helvetica", "normal");
+      doc.text(`${formData[field.name] || "N/A"}`, 90, yPosition);
+      yPosition += lineSpacing;
+  });
 
-            let y29 = 40;
-            const accidentFields = [
-                "date_of_accident", "injured_name", "injured_age",
-                "injured_sex", "occupation", "nature_of_injury",
-                "cause_of_accident", "action_taken", "remarks"
-            ];
+  // ✅ Certification Footer
+  yPosition += 15;
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(11);
+  doc.setTextColor(50);
+  doc.text(
+      "I, certify that I have personally examined the details above and confirm the correctness of the report.",
+      20,
+      yPosition
+  );
 
-            accidentFields.forEach(field => {
-                doc.text(`${formFields[2].find(f => f.name === field)?.label || field}: ${formData[field] || "N/A"}`, 20, y29);
-                y29 += 10;
-            });
+  yPosition += 10;
+  doc.setTextColor(0, 0, 0);
+  doc.setFont("helvetica", "bold");
+  doc.text("Authorized Signature: ____________________", 20, yPosition);
+  doc.text("Factory Inspector Name: ____________________", 110, yPosition);
 
-            doc.text("I certify that the above accident was reported correctly and necessary actions have been taken.", 20, y29 + 10);
-            break;
+  yPosition += 10;
+  doc.setFont("helvetica", "normal");
+  doc.text("Date of Report: ____________________", 20, yPosition);
 
-        case 3: // FORM 33 - Certificate of Fitness
-            title = "FORM NO. 33";
-            subtitle = "Certificate of Fitness for Employment in Hazardous Processes";
-            fileName = "Certificate_of_Fitness.pdf";
-
-            doc.text(title, 105, 15, null, null, "center");
-            doc.setFontSize(12);
-            doc.text(subtitle, 105, 25, null, null, "center");
-
-            let y33 = 40;
-            const fitnessFields = [
-                "Name_of_Worker", "guardian_name", "worker_age",
-                "worker_sex", "factory_name", "factory_address",
-                "employment_process", "date_of_issue", "certifying_surgeon"
-            ];
-
-            fitnessFields.forEach(field => {
-                doc.text(`${formFields[3].find(f => f.name === field)?.label || field}: ${formData[field] || "N/A"}`, 20, y33);
-                y33 += 10;
-            });
-
-            doc.text("This certificate is issued as per regulations under the Factories Act.", 20, y33 + 10);
-            break;s
-
-        default:
-            title = "FACTORY FORM";
-            subtitle = "Generated Report";
-            fileName = "Factory_Form_Report.pdf";
-            doc.text(title, 105, 15, null, null, "center");
-            doc.text(subtitle, 105, 25, null, null, "center");
-            doc.text("No specific format found for this form.", 20, 40);
-            break;
-    }
-
-    // Save the PDF
-    doc.save(fileName);
+  // ✅ Save the PDF
+  doc.save(fileName);
+  alert("📥 PDF Downloaded Successfully!");
 };
 
 
   return (
-    <div className="factories-form-page">
+<div className="factories-form-page">
   <h2>{form?.name}</h2>
 
-  <form
-    className="factories-form"
-    onSubmit={handleSubmit}
-    style={{ maxHeight: "80vh", overflowY: "auto", padding: "20px" }}
-  >
+  <form className="factories-form" onSubmit={handleSubmit}>
     <fieldset>
       <legend>Fill in the details</legend>
-      
-      {formFields[form.id]?.map((field, index) => (
-        <div key={index} className="form-group">
-          <label htmlFor={field.name}>{field.label}:</label>
-          <input
-            type={field.type || "text"}
-            id={field.name}
-            name={field.name}
-            value={formData[field.name] || ""}
-            onChange={handleChange}
-            required={field.required}
-            className="form-input"
-          />
-          {errors[field.name] && <p className="error-message">{errors[field.name]}</p>}
-        </div>
-      ))}
+
+      <div className="form-grid">
+        {formFields[form.id]?.map((field, index) => (
+          <div key={index} className="form-group">
+            <label htmlFor={field.name}>{field.label}:</label>
+            {field.type === "select" ? (
+              <select
+                id={field.name}
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleChange}
+                required={field.required}
+              >
+                <option value="">Select</option>
+                {field.options?.map((option, i) => (
+                  <option key={i} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            ) : field.type === "textarea" ? (
+              <textarea
+                id={field.name}
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleChange}
+                required={field.required}
+              />
+            ) : (
+              <input
+                type={field.type}
+                id={field.name}
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleChange}
+                required={field.required}
+              />
+            )}
+          </div>
+        ))}
+      </div>
     </fieldset>
 
     <div className="form-buttons">
-  <button type="submit" className="submit-btn" disabled={submitted}>
-    ✅ Submit
-  </button>
-  {submitted && (
-    <button onClick={handleDownloadPDF} className="download-btn">
-      📥 Download PDF
-    </button>
-  )}
-</div>
+      <button type="submit" className="submit-btn" disabled={submitted}>
+        ✅ Submit
+      </button>
+      {submitted && (
+        <button onClick={handleDownloadPDF} className="download-btn">
+          📥 Download PDF
+        </button>
+      )}
+    </div>
   </form>
 </div>
+
 
   );
 };
