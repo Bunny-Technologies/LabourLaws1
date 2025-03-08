@@ -54,7 +54,8 @@ const FactoriesFormPage = () => {
     2: [ // Form 29 - Register of Accidents
       { "name": "serial_number", "label": "Serial Number", "type": "number", "required": true },
       { "name": "date_time_of_notice", "label": "Date & Time of Notice", "type": "datetime-local", "required": true },
-      { "name": "person_serial_number", "label": "Name and Serial Number of the Person Involved in the Register of Adult/Child Register", "type": "text", "required": true },
+      { "name": "person_name", "label": "Name of the Person Involved in the Register of Adult/Child Register", "type": "text", "required": true },
+      { "name": "person_serial_number", "label": "Serial Number of the Person Involved in the Register of Adult/Child Register", "type": "text", "required": true },
       { "name": "esic_insurance_number", "label": "ESIC Insurance Number", "type": "text", "required": false },
       { "name": "date", "label": "Date", "type": "date", "required": true },
       { "name": "time", "label": "Time", "type": "time", "required": true },
@@ -63,10 +64,13 @@ const FactoriesFormPage = () => {
       { "name": "nature_of_injury", "label": "Nature of Injury/Dangerous Occurrence", "type": "textarea", "required": true },
       { "name": "injured_person_action", "label": "What Exactly was the Injured Person, if Any, Doing at that Notice", "type": "textarea", "required": true },
       { "name": "notice_given_by", "label": "Name of the Person Giving the Notice", "type": "text", "required": true },
-      { "name": "witness_details", "label": "Name, Address, and Occupation of Two Witnesses", "type": "textarea", "required": true },
+      { "name": "witness_name", "label": "Name of Two Witnesses", "type": "textarea", "required": true },
+      { "name": "witness_address", "label": "Address of Two Witnesses", "type": "textarea", "required": true },
+      { "name": "witness_occupation", "label": "Occupation of Two Witnesses", "type": "textarea", "required": true },
       { "name": "return_date", "label": "Date of Return of Injured Person to Work", "type": "date", "required": false },
       { "name": "days_absent", "label": "Number of Days the Injured Person was Absent from Work Including Holidays and Off Days", "type": "number", "required": true },
-      { "name": "entry_signature", "label": "Signature and Designation of the Person Who Makes the Entry with Date", "type": "text", "required": true }
+      { "name": "person_signature", "label": "Signature of the Person Who Makes the Entry with Date", "type": "text", "required": true },
+      { "name": "person_designation", "label": "Designation of the Person Who Makes the Entry with Date", "type": "text", "required": true },
     ],
     3: [
         { "name": "serial_number", "label": "Serial Number in the Register of Adult Workers", "type": "number", "required": true },

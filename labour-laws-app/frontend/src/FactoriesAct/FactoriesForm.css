@@ -1,203 +1,273 @@
-/* General Styling */
-body {
-    font-family: "Merriweather", serif;
-    background: linear-gradient(to right, #e0e7ff, #c7d2fe);
-    color: #333;
+/* Global Styles */
+body, html {
     margin: 0;
     padding: 0;
-  }
-  
-  /* Header with Images */
-  .govt-header {
+    width: 100vw;
+    height: 100vh;
+    font-family: "Merriweather", serif;
+    overflow-y: auto; /* Enable scrolling for full page */
+    overflow-x: hidden;
+    background: #f5f5f5; /* Light background */
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+}
+
+/* Fixed Header */
+.govt-header {
+    width: 100%;
     background: #002b5b;
     color: white;
-    padding: 10px 20px;
+    padding: 15px 20px;
     border-bottom: 4px solid #ffcc00;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Header Images Styling */
-  .header-image {
-    height: 70px;
-    width: auto;
-  }
-  
-  /* Centered Title */
-  .govt-header h1 {
-    flex-grow: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
     text-align: center;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0;
-  }
-  
-  /* Header Navigation */
-  .govt-header nav {
+}
+
+/* Content Wrapper */
+.govt-content {
+    flex: 1;
+    width: 100%;
     display: flex;
     justify-content: center;
-    gap: 12px;
-    margin-top: 10px;
-  }
-  
-  .govt-header nav button {
-    background: white;
-    color: #002b5b;
-    padding: 12px 18px;
-    border: 2px solid #002b5b;
-    cursor: pointer;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 6px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .govt-header nav button:hover {
-    background: #ffcc00;
-    color: #002b5b;
-    transform: scale(1.05);
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Content Layout */
-  .govt-content {
-    display: flex;
-    margin: 20px auto;
+    align-items: flex-start;
+    padding-top: 80px;
+    box-sizing: border-box;
+}
+
+/* Form Container */
+.factories-form-page {
+    width: 95%;
     max-width: 1200px;
-    gap: 20px;
-  }
-  
-  /* Sidebar */
-  .govt-sidebar {
-    width: 300px;
-    background: #f1f1f1;
-    padding: 20px;
-    border-right: 3px solid #ddd;
-    box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  }
-  
-  .govt-sidebar h3 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #002b5b;
-    margin-bottom: 10px;
-  }
-  
-  /* Factories Form Page */
-  .factories-form-page {
-    max-width: 800px;
-    margin: 30px auto;
     padding: 30px;
-    background: #ffffff;
-    border-radius: 8px;
+    background: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: "Arial", sans-serif;
-    border: 1px solid #ccc;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  
-  /* Form Title */
-  .factories-form h2 {
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.factories-form {
+    width: 90%;
+    max-width: 1200px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* Form Title */
+.factories-form-page h2 {
     text-align: center;
     color: #002f4b;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 20px;
-    border-bottom: 2px solid #002f4b;
+    border-bottom: 3px solid #002f4b;
     padding-bottom: 10px;
-  }
-  
-  /* Form Group */
-  .form-group {
+}
+
+/* Form Grid - Two Columns */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+/* Form Group */
+.form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
-  }
-  
-  .form-group label {
+}
+
+.form-group label {
     font-weight: bold;
     color: #333;
     margin-bottom: 5px;
-  }
-  
-  /* Inputs */
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
+}
+
+/* Input Fields */
+.form-group input,
+.form-group select,
+.form-group textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+    padding: 18px;
+    font-size: 16px;
+    border: 3px solid #333;
+    border-radius: 8px;
     box-sizing: border-box;
-  }
-  
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
+}
+
+.form-group textarea {
+    min-height: 150px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
     border-color: #005f73;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 95, 115, 0.5);
-  }
-  
-  /* Buttons */
-  .submit-btn,
-  .download-btn {
+}
+
+/* Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.submit-btn, .download-btn {
     width: 100%;
-    margin-top: 15px;
-  }
-  
-  .submit-btn {
+    padding: 14px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.submit-btn {
     background: #002f4b;
     color: white;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-  }
-  
-  .submit-btn:hover {
+}
+
+.submit-btn:hover {
     background: #005f73;
-  }
-  
-  .download-btn {
+}
+
+.download-btn {
     background: #28a745;
     color: white;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-  }
-  
-  .download-btn:hover {
+}
+
+.download-btn:hover {
     background: #218838;
-  }
-  
-  /* Scrollbar Fix */
-  .factories-form-page::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .factories-form-page::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-  }
-  
-  .factories-form-page::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  
+}
+
+/* Responsive for Large Screens */
+@media (min-width: 1600px) {
+    .factories-form-page {
+        max-width: 1000px;
+    }
+}
+
+/* Responsive for Smaller Screens */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* Increase padding-top to push content below header */
+.govt-content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 120px; /* Increase to match the header height */
+    box-sizing: border-box;
+}
+
+/* Ensure form does not get cut off */
+.factories-form-page {
+    width: 95%;
+    max-width: 1200px;
+    padding: 30px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align form to start */
+    align-items: center;
+}
+
+/* Ensure form fields are visible properly */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+/* Responsive fix for smaller screens */
+@media (max-width: 768px) {
+    .govt-content {
+        padding-top: 140px; /* Adjust for smaller screens */
+    }
+    .form-grid {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+}
+/* Increase padding-top to push content below header */
+.govt-content {
+    padding-top: 120px; /* Increase padding to prevent header overlap */
+}
+.govt-header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: #002b5b;
+    color: white;
+    padding: 15px 20px;
+    border-bottom: 4px solid #ffcc00;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    height: 70px; /* Set a fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.govt-content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 90px; /* Match header height */
+    box-sizing: border-box;
+}
+.factories-form-page {
+    width: 100vw; /* Full screen width */
+    height: 100vh; /* Full screen height */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Start from the top */
+    align-items: center;
+    overflow: hidden; /* Prevent inner scrollbar */
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto; /* Single scrollbar for the page */
+}
+
+.factories-form {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    min-height: 100vh; /* Ensure full viewport height */
+    overflow: visible; /* Prevent inner scrolling */
+}
+
