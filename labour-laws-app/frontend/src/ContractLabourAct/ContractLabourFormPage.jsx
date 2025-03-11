@@ -14,27 +14,42 @@ const ContractLabourFormPage = () => {
   // ✅ Form Structure
   const formFields = {
     1: [
-      { name: "Name_of_Contractor", label: "Name of Contractor", type: "text", required: true },
-      { name: "Contractor_Address", label: "Contractor Address", type: "textarea", required: true },
-      { name: "Nature_of_Work", label: "Nature of Work", type: "text", required: true },
-      { name: "Location_of_Work", label: "Location of Work", type: "text", required: true },
-      { name: "Date_of_Contract_Start", label: "Date of Contract Start", type: "date", required: true },
-      { name: "Date_of_Contract_End", label: "Date of Contract End", type: "date", required: true },
-      { name: "Maximum_No_of_Workers", label: "Maximum No. of Workers", type: "number", required: true, min: 1 },
-      { name: "Remarks", label: "Remarks", type: "textarea", required: false },
+      { "name": "principal_employer_name", "label": "Name of Principal Employer", "type": "text", "required": true },
+      { "name": "principal_employer_address", "label": "Address of Principal Employer", "type": "text", "required": true },
+      { "name": "establishment_name", "label": "Name of Establishment", "type": "text", "required": true },
+      { "name": "establishment_address", "label": "Address of Establishment", "type": "text", "required": true },
+      { "name": "contractor_name", "label": "Name of Contractor", "type": "text", "required": true },
+      { "name": "contractor_address", "label": "Address of Contractor", "type": "text", "required": true },
+      { "name": "contract_nature", "label": "Nature of Work on Contract", "type": "text", "required": true },
+      { "name": "contract_location", "label": "Location of Contract Work", "type": "text", "required": true },
+      { "name": "contract_period_from", "label": "Contract Period From", "type": "date", "required": true },
+      { "name": "contract_period_to", "label": "Contract Period To", "type": "date", "required": true },
+      { "name": "max_workers", "label": "Maximum Number of Workmen Employed by Contractor", "type": "number", "required": true }
+    ],
+    
+  2: [
+    { "name": "contractor_name", "label": "Name of Contractor", "type": "text", "required": true },
+    { "name": "contractor_address", "label": "Address of Contractor", "type": "text", "required": true },
+    { "name": "establishment_name", "label": "Name of Establishment", "type": "text", "required": true },
+    { "name": "establishment_address", "label": "Address of Establishment", "type": "text", "required": true },
+    { "name": "work_nature", "label": "Nature of Work", "type": "text", "required": true },
+    { "name": "work_location", "label": "Location of Work", "type": "text", "required": true },
+    { "name": "principal_employer_name", "label": "Name of Principal Employer", "type": "text", "required": true },
+    { "name": "principal_employer_address", "label": "Address of Principal Employer", "type": "text", "required": true },
+    { "name": "serial_number", "label": "Serial Number", "type": "number", "required": true },
+    { "name": "employee_name", "label": "Name of Employee", "type": "text", "required": true },
+    { "name": "father_husband_name", "label": "Father's/Husband's Name", "type": "text", "required": true },
+    { "name": "designation", "label": "Nature of Employment/Designation", "type": "text", "required": true },
+    { "name": "wage_period", "label": "Wage Period and Wages Payable", "type": "text", "required": true },
+    { "name": "advance_date", "label": "Date of Advance Given", "type": "date", "required": true },
+    { "name": "advance_amount", "label": "Amount of Advance Given", "type": "number", "required": true },
+    { "name": "advance_purpose", "label": "Purpose for which Advance was Made", "type": "text", "required": true },
+    { "name": "installments_count", "label": "Number of Installments for Repayment", "type": "number", "required": true },
+    { "name": "installment_repayment_details", "label": "Date and Amount of Each Installment Repaid", "type": "text", "required": true },
+    { "name": "last_installment_date", "label": "Date of Last Installment Repaid", "type": "date", "required": true },
+    { "name": "remarks", "label": "Remarks", "type": "textarea", "required": false }
   ],
-  2: [ 
-    { name: "Name_of_Workman", label: "Name of Workman", type: "text", required: true },
-    { name: "Fathers_Husbands_Name", label: "Father's/Husband's Name", type: "text", required: true },
-    { name: "Designation", label: "Designation", type: "text", required: true },
-    { name: "Wage_Period", label: "Wage Period", type: "text", required: true },
-    { name: "Amount_of_Advance_Given", label: "Amount of Advance Given (₹)", type: "number", required: true, min: 0 },
-    { name: "Purpose_of_Advance", label: "Purpose of Advance", type: "text", required: true },
-    { name: "Date_of_Recovery", label: "Date of Recovery", type: "date", required: true },
-    { name: "Amount_Recovered", label: "Amount Recovered (₹)", type: "number", required: true, min: 0 },
-    { name: "Balance_Amount", label: "Balance Amount (₹)", type: "number", required: true, min: 0 },
-    { name: "Remarks", label: "Remarks", type: "textarea", required: false },
-  ],
+  
   3: [ 
     { name: "contractor_name", label: "Name and Address of Contractor", type: "text", required: true },
     { name: "workman_name", label: "Name of Workman", type: "text", required: true },
@@ -283,46 +298,68 @@ const ContractLabourFormPage = () => {
 };
 
   return (
-    <div className="factories-form-page">
+<div className="factories-form-page">
   <h2>{form?.name}</h2>
 
-  <form
-    className="factories-form"
-    onSubmit={handleSubmit}
-    style={{ maxHeight: "80vh", overflowY: "auto", padding: "20px" }}
-  >
+  <form className="factories-form" onSubmit={handleSubmit}>
     <fieldset>
       <legend>Fill in the details</legend>
-      
-      {formFields[form.id]?.map((field, index) => (
-        <div key={index} className="form-group">
-          <label htmlFor={field.name}>{field.label}:</label>
-          <input
-            type={field.type || "text"}
-            id={field.name}
-            name={field.name}
-            value={formData[field.name] || ""}
-            onChange={handleChange}
-            required={field.required}
-            className="form-input"
-          />
-          {errors[field.name] && <p className="error-message">{errors[field.name]}</p>}
-        </div>
-      ))}
+
+      <div className="form-grid">
+        {formFields[form.id]?.map((field, index) => (
+          <div key={index} className="form-group">
+            <label htmlFor={field.name}>{field.label}:</label>
+            {field.type === "select" ? (
+              <select
+                id={field.name}
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleChange}
+                required={field.required}
+              >
+                <option value="">Select</option>
+                {field.options?.map((option, i) => (
+                  <option key={i} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            ) : field.type === "textarea" ? (
+              <textarea
+                id={field.name}
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleChange}
+                required={field.required}
+              />
+            ) : (
+              <input
+                type={field.type}
+                id={field.name}
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleChange}
+                required={field.required}
+              />
+            )}
+          </div>
+        ))}
+      </div>
     </fieldset>
 
     <div className="form-buttons">
-  <button type="submit" className="submit-btn" disabled={submitted}>
-    ✅ Submit
-  </button>
-  {submitted && (
-    <button onClick={handleDownloadPDF} className="download-btn">
-      📥 Download PDF
-    </button>
-  )}
-</div>
+      <button type="submit" className="submit-btn" disabled={submitted}>
+        ✅ Submit
+      </button>
+      {submitted && (
+        <button onClick={handleDownloadPDF} className="download-btn">
+          📥 Download PDF
+        </button>
+      )}
+    </div>
   </form>
 </div>
+
 
   );
 };
