@@ -18,9 +18,13 @@ const FactoriesFormPage = () => {
     
       { "name": "hood_serial_no", "label": "Hood Serial No.", "type": "text", "required": true },
       { "name": "contaminant_captured", "label": "Contaminant Captured", "type": "text", "required": true },
+<<<<<<< HEAD
       { "name": "capture_velocities_design_vs_actual", "label": "Capture Velocities (Design vs Actual)", "type": "text", "required": true },
 
 
+=======
+      { "name": "capture_velocity", "label": "Capture Velocities (Design vs Actual)", "type": "text", "required": true },
+>>>>>>> aa114a66a2562b1f3ad5fdac31505a42e90431b2
       { "name": "volume_exhausted", "label": "Volume Exhausted at Hood", "type": "number", "required": true },
       { "name": "hood_static_pressure", "label": "Hood Static Pressure", "type": "number", "required": true },
     
@@ -75,7 +79,11 @@ const FactoriesFormPage = () => {
       { "name": "person_designation", "label": "Designation of the Person Who Makes the Entry with Date", "type": "text", "required": true },
     ],
     3: [
+<<<<<<< HEAD
         { "name": "serial_number_in_register", "label": "Serial Number in the Register of Adult Workers", "type": "number", "required": true },
+=======
+        { "name": "serial_number", "label": "Serial Number in the Register of Adult Workers", "type": "number", "required": true },
+>>>>>>> aa114a66a2562b1f3ad5fdac31505a42e90431b2
         { "name": "worker_name", "label": "Name of the Person Examined", "type": "text", "required": true },
         { "name": "father_name", "label": "Father’s Name", "type": "text", "required": true },
         { "name": "sex", "label": "Sex", "type": "select", "required": true, "options": ["Male", "Female", "Other"] },
@@ -246,6 +254,7 @@ const FactoriesFormPage = () => {
   // ✅ Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
   
     let validationErrors = {};
   
@@ -254,12 +263,22 @@ const FactoriesFormPage = () => {
       if (field.required && !formData[field.name]) {
         validationErrors[field.name] = "This field is required.";
       }
+=======
+
+    let validationErrors = {};
+
+    // Validate all fields before submission
+    formFields[form.id]?.forEach((field) => {
+        const errorMsg = validateField(field.name, formData[field.name]);
+        if (errorMsg) validationErrors[field.name] = errorMsg;
+>>>>>>> aa114a66a2562b1f3ad5fdac31505a42e90431b2
     });
-  
+
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
+        setErrors(validationErrors);
+        return;
     }
+<<<<<<< HEAD
   
     try {
       console.log("📤 Sending Form Data to Backend...", formData);
@@ -291,6 +310,21 @@ const FactoriesFormPage = () => {
   };
   
   
+=======
+
+    // ✅ Simulating successful form submission without backend
+    console.log("✅ Form submission simulated (No backend)");
+
+    // ✅ Set submitted to true to enable download
+    setSubmitted(true);
+
+    // ✅ Show success alert only once
+    if (!submitted) {
+        alert("✅ Form submitted successfully!");
+    }
+};
+
+>>>>>>> aa114a66a2562b1f3ad5fdac31505a42e90431b2
   // ✅ Handle PDF Generation
 // ✅ Handle PDF Generation
 const handleDownloadPDF = () => {
