@@ -13,6 +13,7 @@ import PaymentWagesFormsList from "./PaymentWagesAct/PaymentWagesFormsList";
 import PaymentWagesFormPage from "./PaymentWagesAct/PaymentWagesFormPage";
 import WorkmenCompensationFormsList from "./WorkmenCompensationAct/WorkmenCompensationFormsList";
 import WorkmenCompensationFormPage from "./WorkmenCompensationAct/WorkmenCompensationFormPage";
+import Reports from "./Reports";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -47,7 +48,7 @@ const App = () => {
           <Route path="/payment-of-wages-act/form/:id" element={<PaymentWagesFormPage />} />
           <Route path="/workmen-compensation-act-1923" element={<WorkmenCompensationFormsList />} />
           <Route path="/workmen-compensation-act/form/:id" element={<WorkmenCompensationFormPage />} />
-
+          <Route path="/reports" element={<Reports />} /> 
         </>
       ) : (
         <Route path="*" element={<Navigate to="/" replace />} />

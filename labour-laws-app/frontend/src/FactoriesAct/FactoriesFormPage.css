@@ -1,0 +1,145 @@
+/* ✅ Fullscreen Layout - No Scrollbars */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* No scrollbars */
+    font-family: Arial, sans-serif;
+    background: white;
+}
+
+/* ✅ Full-Width Form Page */
+.factories-form-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 15px; /* Reduced padding slightly */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* ✅ Full-Width Form Header */
+.factories-form-page h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 18px; /* Slightly reduced */
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid black;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+}
+
+/* ✅ Form Width Optimization */
+.factories-form {
+    width: 100%;
+    max-width: 97vw; /* Slightly reduced width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ✅ Compact Grid Layout */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 fields per row */
+    gap: 8px; /* Reduced spacing */
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ✅ Labels and Inputs */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 11px; /* Reduced font size */
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+/* ✅ Input Fields */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 5px; /* Slightly reduced padding */
+    font-size: 11px; /* Reduced font size */
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+/* ✅ Responsive Layout for Various Screens */
+@media (min-width: 1600px) {
+    .form-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 1599px) {
+    .form-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1200px) {
+    .form-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .form-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* ✅ Buttons */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.submit-btn,
+.download-btn {
+    width: 160px; /* Slightly reduced */
+    padding: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px solid black;
+    background: #002f4b;
+    color: white;
+    cursor: pointer;
+    margin: 4px;
+    text-align: center;
+}
+
+.submit-btn:hover,
+.download-btn:hover {
+    background: #005f73;
+}
+
+/* ✅ Print-Friendly */
+@media print {
+    .submit-btn, .download-btn {
+        display: none;
+    }
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./FactoriesForm.css";
+import "./FactoriesForms.css";
 
 const factoriesForms = [
     { id: 1, name: "Form 26A - Dust and Fume Report", file: "factories_form26a.pdf" },

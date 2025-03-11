@@ -25,6 +25,10 @@ const DepartmentSelection = () => {
     }
   };
 
+  const handleReportsClick = () => {
+    navigate("/reports"); // Navigate to Reports Page
+  };
+
   return (
     <div className="govt-page">
       {/* Header with Navigation */}
@@ -40,7 +44,9 @@ const DepartmentSelection = () => {
         <button>Significance of Legal Services</button>
         <button>Bare Acts</button>
         <button>Employer Login</button>
+        <button onClick={handleReportsClick}>Reports</button> {/* ✅ FIXED */}
       </nav>
+
 
       <div className="govt-content">
         {/* Sidebar for Departments */}
