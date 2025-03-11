@@ -187,115 +187,188 @@ const ContractLabourFormPage = () => {
   // ✅ Handle PDF Generation
   const handleDownloadPDF = () => {
     if (!submitted) return;
-
-    const doc = new jsPDF();
-    doc.setFont("helvetica", "bold");
+  
+    const doc = new jsPDF({ orientation: "landscape" }); // Landscape for wider tables
+    doc.setFont("times", "bold");
     doc.setFontSize(16);
-
+  
     let title = "";
     let subtitle = "";
+    let sectionTitle = "";
     let fileName = "";
-
-    // Define form-specific titles and filenames for Contract Labour Act forms
+  
+    // ✅ Define Titles, Section Titles & Filenames based on Form ID
     switch (form.id) {
         case 1:
-            title = "FORM XII - REGISTER OF CONTRACTORS";
-            subtitle = "Contractor Details Under Contract Labour Act, 1970";
+            title = "FORM XII";
+            subtitle = "(Sec Rule 74)";
+            sectionTitle = "REGISTER OF CONTRACTORS";
             fileName = "Register_of_Contractors.pdf";
             break;
         case 2:
-            title = "FORM XXII - REGISTER OF ADVANCES";
-            subtitle = "Advance Payments to Workmen Under Contract Labour Act, 1970";
+            title = "FORM XXII";
+            subtitle = "(See Rule 78(1)(a)(ii))";
+            sectionTitle = "REGISTER OF ADVANCES";
             fileName = "Register_of_Advances.pdf";
-            break;
-        case 3:
-            title = "FORM XIII - REGISTER OF WORKMEN EMPLOYED BY CONTRACTOR";
-            subtitle = "Details of Workmen Employed By Contractors";
-            fileName = "Register_of_Workmen_Employed.pdf";
-            break;
-        case 4:
-            title = "FORM XIV - EMPLOYMENT CARD";
-            subtitle = "Issued to Workmen Under Contract Labour Act, 1970";
-            fileName = "Employment_Card.pdf";
-            break;
-        case 5:
-            title = "FORM XV - SERVICE CERTIFICATE";
-            subtitle = "Certificate Issued to Employees";
-            fileName = "Service_Certificate.pdf";
-            break;
-        case 6:
-            title = "FORM XVI - MUSTER ROLL";
-            subtitle = "Attendance Register of Workers";
-            fileName = "Muster_Roll.pdf";
-            break;
-        case 7:
-            title = "FORM XVII - REGISTER OF WAGES";
-            subtitle = "Details of Wages Paid to Workers";
-            fileName = "Register_of_Wages.pdf";
-            break;
-        case 8:
-            title = "FORM XVIII - REGISTER OF DEDUCTIONS FOR DAMAGE OR LOSS";
-            subtitle = "Records of Worker Deductions for Damage or Loss";
-            fileName = "Register_of_Deductions.pdf";
-            break;
-        case 9:
-            title = "FORM XIX - REGISTER OF FINES";
-            subtitle = "Fines Imposed on Workmen";
-            fileName = "Register_of_Fines.pdf";
-            break;
-        case 10:
-            title = "FORM XX - REGISTER OF ADVANCES";
-            subtitle = "Records of Advances Given to Workers";
-            fileName = "Register_of_Advances.pdf";
-            break;
-        case 11:
-            title = "FORM XXI - REGISTER OF OVERTIME";
-            subtitle = "Details of Overtime Hours & Wages Paid";
-            fileName = "Register_of_Overtime.pdf";
-            break;
-        case 12:
-            title = "FORM XXIII - WAGE SLIP";
-            subtitle = "Worker's Salary/Wage Slip Record";
-            fileName = "Wage_Slip.pdf";
-            break;
-        case 13:
-            title = "FORM XXIV - REGISTER OF EMPLOYMENT";
-            subtitle = "Employment Register for Workmen";
-            fileName = "Register_of_Employment.pdf";
             break;
         default:
             title = "CONTRACT LABOUR FORM";
             subtitle = "Generated Report Under Contract Labour Act";
+            sectionTitle = "Form Details";
             fileName = "Contract_Labour_Form_Report.pdf";
             break;
     }
-
-    // Formatting Header
-    doc.setTextColor(0, 0, 139); // Dark Blue
-    doc.text(title, 105, 20, null, null, "center");
-
-    doc.setFontSize(12);
-    doc.setTextColor(50);
-    doc.text(subtitle, 105, 30, null, null, "center");
-
-    // Formatting the "Generated Form Data" section
-    doc.setFontSize(14);
+  
+    // ✅ Set Header Formatting
     doc.setTextColor(0, 0, 0);
-    doc.text("Generated Form Data:", 20, 50);
-
-    let y = 60;
+    doc.setFontSize(14);
+    doc.text(title, 148, 20, null, null, "center"); 
+  
     doc.setFontSize(12);
-    formFields[form.id]?.forEach((field) => {
-        doc.setFont("helvetica", "normal");
-        doc.text(`${field.label}:`, 20, y);
-        doc.setFont("helvetica", "bold");
-        doc.text(`${formData[field.name] || "N/A"}`, 100, y);
+    doc.text(subtitle, 148, 30, null, null, "center"); 
+  
+    doc.setFontSize(12);
+    doc.setFont("times", "bold");
+    doc.text(sectionTitle, 148, 40, null, null, "center"); // Ensure "REGISTER OF CONTRACTORS" is added
+    doc.setFont("times", "normal");
+  
+    let y = 55; 
+  
+    // ✅ Add Top Section Fields Based on Form ID
+    doc.setFont("times", "normal");
+    doc.setFontSize(10);
+  
+    if (form.id === 1) {
+        // **Form XII - Register of Contractors**
+        doc.text("      Name and address of the principal employer:", 20, y);
+        doc.text((formData["principal_employer_name"] || "N/A") + " and " + (formData["principal_employer_address"] || "N/A"), 100, y);
+        y += 15;
+        doc.text("      Name and address of the establishment:", 20, y);
+        doc.text((formData["establishment_name"] || "N/A") + " and " + (formData["establishment_address"] || "N/A"), 100, y);
         y += 10;
+    } else if (form.id === 2) {
+        // **Form XXII - Register of Advances**
+        doc.text("      Name and address of the contractor:", 20, y);
+        doc.text((formData["contractor_name"] || "N/A") + " and " + (formData["contractor_address"] || "N/A"), 100, y);
+        y += 10;
+        doc.text("      Name and address of the establishment:", 20, y);
+        doc.text((formData["establishment_name"] || "N/A") + " and " + (formData["establishment_address"] || "N/A"), 100, y);
+        y += 10;
+        doc.text("      Nature and location of work:", 20, y);
+        doc.text((formData["work_nature"] || "N/A") + " and " + (formData["work_location"] || "N/A"), 100, y);
+        y += 10;
+        doc.text("      Name and address of the principal employer:", 20, y);
+        doc.text((formData["principal_employer_name"] || "N/A") + " and " + (formData["principal_employer_address"] || "N/A"), 100, y);
+        y += 15;
+    }
+  
+    // ✅ Define Table Structure
+    let startX = 20;
+    let startY = y;
+    let cellWidth = [15, 50, 40, 40, 30, 30, 30]; 
+    let rowHeight = 10; 
+  
+    let headers = [];
+    let rowData = [];
+  
+    if (form.id === 1) {
+        // ✅ **Form XII - Register of Contractors**
+        headers = ["Sr. No.", "Contractor Name", "Nature of Work", "Location", "Period From", "Period To", "Max Workers"];
+        rowData.push([
+            "1",
+            formData["contractor_name"] || "N/A",
+            formData["contract_nature"] || "N/A",
+            formData["contract_location"] || "N/A",
+            formData["contract_period_from"] || "N/A",
+            formData["contract_period_to"] || "N/A",
+            formData["max_workers"] || "N/A",
+        ]);
+    } else if (form.id === 2) {
+        // ✅ **Form XXII - Register of Advances (First Table)**
+        headers = ["Sr. No.", "Worker Name", "Father's/Husbands name", "Designation", "Wage Period", "Advance Given", "Purpose"];
+        rowData.push([
+            formData["serial_number"] || "N/A",
+            formData["employee_name"] || "N/A",
+            formData["father_husband_name"] || "N/A",
+            formData["designation"] || "N/A",
+            formData["wage_period"] || "N/A",
+            formData["advance_amount"] || "N/A",
+            formData["advance_purpose"] || "N/A",
+        ]);
+    }
+  
+    // ✅ Draw First Table
+    doc.setFont("times", "bold");
+    doc.setFontSize(10);
+    let x = startX;
+  
+    headers.forEach((header, i) => {
+        doc.rect(x, startY, cellWidth[i], rowHeight);
+        doc.text(header, x + 2, startY + 6); 
+        x += cellWidth[i]; 
     });
-
-    // Save the PDF with a dynamic filename
+  
+    // ✅ Draw Table Rows
+    doc.setFont("times", "normal");
+    let rowY = startY + rowHeight;
+  
+    rowData.forEach((row) => {
+        x = startX;
+        row.forEach((cell, i) => {
+            doc.rect(x, rowY, cellWidth[i], rowHeight);
+            doc.text(String(cell), x + 2, rowY + 6);
+            x += cellWidth[i];
+        });
+        rowY += rowHeight;
+    });
+  
+    // ✅ **Second Table (Only for Form XXII)**
+    if (form.id === 2) {
+        let secondTableHeaders = [
+            "No. of Installments",
+            "Date & Amount of Each Installment",
+            "Last Installment Date",
+            "Remarks"
+        ];
+  
+        let secondTableData = [
+            [
+                formData["installments_count"] || "N/A",
+                formData["installment_repayment_details"] || "N/A",
+                formData["last_installment_date"] || "N/A",
+                formData["remarks"] || "N/A",
+            ]
+        ];
+  
+        let secondTableCellWidths = [40, 60, 50, 50];
+  
+        // ✅ Move down before drawing second table
+        rowY += 15;
+  
+        // ✅ Draw Second Table Headers
+        x = startX;
+        secondTableHeaders.forEach((header, i) => {
+            doc.rect(x, rowY, secondTableCellWidths[i], rowHeight);
+            doc.text(header, x + 2, rowY + 6);
+            x += secondTableCellWidths[i];
+        });
+  
+        // ✅ Draw Second Table Rows
+        rowY += rowHeight;
+        secondTableData.forEach((row) => {
+            x = startX;
+            row.forEach((cell, i) => {
+                doc.rect(x, rowY, secondTableCellWidths[i], rowHeight);
+                doc.text(String(cell), x + 2, rowY + 6);
+                x += secondTableCellWidths[i];
+            });
+            rowY += rowHeight;
+        });
+    }
+  
+    // ✅ Save PDF
     doc.save(fileName);
-};
+  };
 
   return (
 <div className="factories-form-page">

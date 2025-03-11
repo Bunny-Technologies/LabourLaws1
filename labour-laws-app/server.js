@@ -51,10 +51,40 @@ app.post("/api/login", (req, res) => {
   });
 });
 
-// ✅ Define form categories
+// ✅ Get Forms by Department ID
+app.get("/api/forms/:departmentId", (req, res) => {
+  const departmentId = req.params.departmentId;
+
+  const sql = "SELECT id, form_name FROM forms WHERE department_id = ?";
+  db.query(sql, [departmentId], (err, results) => {
+    if (err) {
+      console.error("❌ Error fetching forms:", err);
+      return res.status(500).json({ error: "❌ Database error" });
+    }
+
+    res.json(results);
+  });
+});
+
+// ✅ Get Forms by Department ID
+app.get("/api/forms/:departmentId", (req, res) => {
+  const departmentId = req.params.departmentId;
+
+  const sql = "SELECT id, form_name FROM forms WHERE department_id = ?";
+  db.query(sql, [departmentId], (err, results) => {
+    if (err) {
+      console.error("❌ Error fetching forms:", err);
+      return res.status(500).json({ error: "❌ Database error" });
+    }
+
+    res.json(results);
+  });
+});
+
+// ✅ Mapping: Forms under Categories
 const formTables = {
   factories_act: {
-    1: "form_26a_dust_and_fume_report_updated", // Form 26A
+    1: "form_26a_dust_and_fume_report_updated", 
     2: "Form_29_Register_of_Accidents_updated",
     3: "form_33_certificate_of_fitness_updated",
     4: "form_1_factory_permission",
@@ -64,10 +94,14 @@ const formTables = {
     8: "form_5_fitness_young_workers",
     9: "form_10_register_leave_wages",
     10: "form_11_health_register",
+  },
+  contract_labour_act: {
+    1: "Form_XII_Register_of_Contractors_updated", // ✅ Added new table
+    2: "form_xxii_register_of_advances_updated",
   }
 };
 
-// ✅ Submit Form Data API
+// ✅ Submit Form Data
 app.post("/api/submit-form/:category/:formId", (req, res) => {
   const { category, formId } = req.params;
   let formData = req.body;
@@ -75,7 +109,7 @@ app.post("/api/submit-form/:category/:formId", (req, res) => {
   console.log("📥 Received Submission:", category, "-> Form ID:", formId);
   console.log("📌 Form Data:", JSON.stringify(formData, null, 2));
 
-  // ✅ Validate category & form ID
+  // ✅ Validate Category & Form ID
   if (!formTables[category]) {
     return res.status(400).json({ error: "❌ Invalid category" });
   }
@@ -92,7 +126,8 @@ app.post("/api/submit-form/:category/:formId", (req, res) => {
   Object.keys(formData).forEach((key) => {
     if (key.includes("date") && formData[key]) {
       let parsedDate = new Date(formData[key]);
-
+  
+      // ✅ Ensure date is valid before formatting
       if (!isNaN(parsedDate.getTime())) {
         formData[key] = parsedDate.toISOString().split("T")[0]; 
       } else {
@@ -101,7 +136,7 @@ app.post("/api/submit-form/:category/:formId", (req, res) => {
       }
     }
   });
-
+  
   // ✅ Construct SQL Query Dynamically
   const columns = Object.keys(formData).join(", ");
   const placeholders = Object.keys(formData).map(() => "?").join(", ");
@@ -121,7 +156,7 @@ app.post("/api/submit-form/:category/:formId", (req, res) => {
   });
 });
 
-// ✅ Fetch Latest Submitted Form Data
+// ✅ Fetch Form Data
 app.get("/api/form-data/:category/:formId", (req, res) => {
   const { category, formId } = req.params;
 
@@ -151,7 +186,7 @@ app.get("/api/form-data/:category/:formId", (req, res) => {
 
 // ✅ Test API Route
 app.get("/", (req, res) => {
-  res.send("✅ Backend is running! Use API endpoints like /api/login, /api/submit-form/:category/:formId, /api/form-data/:category/:formId");
+  res.send("✅ Backend is running! Use API endpoints like /api/login, /api/forms/:departmentId, /api/submit-form/:category/:formId, /api/form-data/:category/:formId");
 });
 
 // ✅ Start Server

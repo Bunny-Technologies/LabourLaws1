@@ -292,104 +292,337 @@ const FactoriesFormPage = () => {
   
   
   // ✅ Handle PDF Generation
-// ✅ Handle PDF Generation
+
 const handleDownloadPDF = () => {
   if (!submitted) return;
 
-  const doc = new jsPDF();
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(18);
+  const doc = new jsPDF({ orientation: "portrait" }); // Use Portrait format for Form 26A
+  doc.setFont("times", "bold");
+  doc.setFontSize(16);
 
   let title = "";
-  let title_line = "";
   let subtitle = "";
+  let sectionTitle = "";
   let fileName = "";
-  let y = 15; // Start position
+  let y = 20;
+  const pageHeight = doc.internal.pageSize.height - 20; // Adjust for margins
 
-  // ✅ Dynamic Title & File Name based on Form ID
-  switch (form.id) {
-      case 1: // FORM 26-A - Dust/Fume Extraction System Report
-          title = "FORM NO. 26-A";
-          title_line = "(Prescribed under Rule 102)";
-          subtitle = "TEST REPORT: DUST/FUME- EXTRACTION SYSTEM";
-          fileName = "Dust_Fume_Extraction_System_Report.pdf";
-          break;
+  const checkPageSpace = (increment) => {
+    if (y + increment > pageHeight) {
+        doc.addPage();
+        y = 20; // Reset Y for new page
+    }
+   };
+
+// ✅ Define Titles, Section Titles & Filenames based on Form ID
+switch (form.id) {
+  case 1:
+      title = "FORM NO. 26-A";
+      subtitle = "(Prescribed under Rule 102)";
+      sectionTitle = "TEST REPORT: DUST/FUME- EXTRACTION SYSTEM";
+      fileName = "Dust_Fume_Extraction_System_Report.pdf";
+      break;
       case 2: // FORM 29 - Register of Accidents
-          title = "FORM NO. 29 (Prescribed under Rule 111)";
-          subtitle = "REGISTER OF ACCIDENTS, MAJOR ACCIDENTS, AND DANGEROUS OCCURRENCES";
-          fileName = "Register_of_Accidents.pdf";
-          break;
-      case 3: // FORM 33 - Certificate of Fitness
-          title = "FORM NO. 33 (Prescribed under Rule 68-T and 102)";
-          subtitle = "CERTIFICATE OF FITNESS FOR EMPLOYMENT IN HAZARDOUS PROCESSES";
-          fileName = "Certificate_of_Fitness.pdf";
-          break;
-      default:
-          title = "FACTORY FORM";
-          subtitle = "Generated Report";
-          fileName = "Factory_Form_Report.pdf";
-          break;
+      title = "FORM NO. 29";
+      subtitle = "(Prescribed under Rule 111)";
+      sectionTitle = "REGISTER OF ACCIDENTS, MAJOR ACCIDENTS, AND DANGEROUS OCCURRENCES";
+      fileName = "Register_of_Accidents.pdf";
+      break;
+  case 3: // FORM 33 - Certificate of Fitness
+      title = "FORM NO. 33";
+      subtitle = "(Prescribed under Rule 68-T and 102)";
+      sectionTitle = "CERTIFICATE OF FITNESS FOR EMPLOYMENT IN HAZARDOUS PROCESSES";
+      fileName = "Certificate_of_Fitness.pdf";
+      break;
+  default:
+      title = "FACTORY FORM";
+      subtitle = "Generated Report";
+      fileName = "Factory_Form_Report.pdf";
+      break;
   }
 
-  // ✅ Title & Subtitle
-  y += 10;
-  doc.setFontSize(14);
+  // ✅ Add Title & Formatting
   doc.setTextColor(0, 0, 0);
-  doc.text(title, 105, y, null, null, "center");  // Title
-
-  y += 5; 
-  doc.setFontSize(11);
-  doc.text(title_line, 105, y, null, null, "center");  // Rule Reference
-
-  y += 10;
-  doc.setFontSize(12);
-  doc.setTextColor(50);
-  doc.text(subtitle, 105, y, null, null, "center");  // Subtitle
-
-  // ✅ Table Layout for Form Data
-  let yPosition = 60;
-  doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
-  doc.setTextColor(0, 0, 0);
-  const lineSpacing = 8; // Space between rows
+  doc.text(title, 105, y, null, null, "center");
 
-  // Fetch Fields Dynamically
-  const formFieldsArray = formFields[form.id] || [];
+  y += 6;
+  doc.setFontSize(10);
+  doc.text(subtitle, 105, y, null, null, "center");
 
-  // ✅ Table Drawing - Label (left) | Value (right)
-  formFieldsArray.forEach((field) => {
-      doc.setFont("helvetica", "bold");
-      doc.text(`${field.label}:`, 20, yPosition);
-      doc.setFont("helvetica", "normal");
-      doc.text(`${formData[field.name] || "N/A"}`, 90, yPosition);
-      yPosition += lineSpacing;
-  });
+  y += 10;
+  doc.setFontSize(10);
+  doc.text(sectionTitle, 105, y, null, null, "center");
 
-  // ✅ Certification Footer
-  yPosition += 15;
-  doc.setFont("helvetica", "italic");
-  doc.setFontSize(11);
-  doc.setTextColor(50);
-  doc.text(
-      "I, certify that I have personally examined the details above and confirm the correctness of the report.",
-      20,
-      yPosition
-  );
+  y += 15;
+  doc.setFontSize(12);
+  doc.setFont("times", "normal");
 
-  yPosition += 10;
-  doc.setTextColor(0, 0, 0);
-  doc.setFont("helvetica", "bold");
-  doc.text("Authorized Signature: ____________________", 20, yPosition);
-  doc.text("Factory Inspector Name: ____________________", 110, yPosition);
+  // ✅ Section 1: General Details
+  if (form.id === 1) {
+      doc.setFont("times", "bold");
+      doc.text("1. Description of System:", 20, y);
+      doc.setFont("times", "normal");
+      doc.text(formData["description_of_system"] || "N/A", 100, y);
+      y += 10;
 
-  yPosition += 10;
-  doc.setFont("helvetica", "normal");
-  doc.text("Date of Report: ____________________", 20, yPosition);
+      checkPageSpace(20);
 
-  // ✅ Save the PDF
+      // ✅ Section 2: Hood Details
+      doc.setFont("times", "bold");
+      doc.text("2. Hood:", 20, y);
+      y += 8;
+      
+      const hoodDetails = [
+          { label: "(a) Serial No. of Hood", key: "hood_serial_no" },
+          { label: "(b) Contaminant Captured", key: "contaminant_captured" },
+          { label: "(c) Capture velocities (at specified points)", key: "capture_velocities_design_vs_actual" },
+          { label: "(d) Volume exhausted at hood", key: "volume_exhausted" },
+          { label: "(e) Hood static pressure", key: "hood_static_pressure" }
+      ];
+
+      hoodDetails.forEach((field) => {
+          checkPageSpace(10);
+          doc.setFont("times", "bold");
+          doc.text(field.label, 25, y);
+          doc.setFont("times", "normal");
+          doc.text(formData[field.key] || "N/A", 100, y);
+          y += 8;
+      });
+
+      checkPageSpace(15);
+
+      // ✅ Section 3: Pressure Drop
+      doc.setFont("times", "bold");
+      doc.text("3. Total pressure drop at joints:", 20, y);
+      doc.setFont("times", "normal");
+      doc.text(formData["pressure_drop_joints"] || "N/A", 100, y);
+      y += 10;
+
+      doc.setFont("times", "bold");
+      doc.text("   Other points of system (to be specified):", 20, y);
+      doc.setFont("times", "normal");
+      doc.text(formData["pressure_drop_other"] || "N/A", 100, y);
+      y += 8;
+
+      checkPageSpace(15);
+
+      // ✅ Section 4: Transport Velocity
+      doc.setFont("times", "bold");
+      doc.text("4. Transport velocity in Dust/Fume \n (at specified points):", 20, y);
+      doc.setFont("times", "normal");
+      doc.text(formData["transport_velocity"] || "N/A", 100, y);
+      y += 12;
+
+      checkPageSpace(15);
+
+      // ✅ Section 5: Air Cleaning Device
+      doc.setFont("times", "bold");
+      doc.text("5. Air Cleaning Device:", 20, y);
+      y += 8;
+
+      const airCleaningDetails = [
+          { label: "(a) Type used", key: "air_cleaning_type" },
+          { label: "(b) Velocity at inlet", key: "air_cleaning_velocity_inlet" },
+          { label: "(c) Static pressure at inlet", key: "air_cleaning_static_pressure" },
+          { label: "(d) Velocity at outlet", key: "air_cleaning_velocity_outlet" }
+      ];
+
+      airCleaningDetails.forEach((field) => {
+          checkPageSpace(10);
+          doc.setFont("times", "bold");
+          doc.text(field.label, 25, y);
+          doc.setFont("times", "normal");
+          doc.text(formData[field.key] || "N/A", 100, y);
+          y += 8;
+      });
+
+      checkPageSpace(15);
+
+      // ✅ Section 6: Fan Details
+      doc.setFont("times", "bold");
+      doc.text("6. Fan:", 20, y);
+      y += 8;
+
+      const fanDetails = [
+          { label: "(a) Type used", key: "fan_type" },
+          { label: "(b) Volume handled", key: "fan_volume_handled" },
+          { label: "(c) Static pressures", key: "fan_static_pressure" },
+          { label: "(d) Pressure drop at outlet of fan", key: "fan_pressure_drop_outlet" }
+      ];
+
+      fanDetails.forEach((field) => {
+          checkPageSpace(10);
+          doc.setFont("times", "bold");
+          doc.text(field.label, 25, y);
+          doc.setFont("times", "normal");
+          doc.text(formData[field.key] || "N/A", 100, y);
+          y += 8;
+      });
+
+      checkPageSpace(15);
+
+      // ✅ Section 7: Fan Motor
+      doc.setFont("times", "bold");
+      doc.text("7. Fan Motor:", 20, y);
+      y += 8;
+
+      const fanMotorDetails = [
+          { label: "(a) Type", key: "fan_motor_type" },
+          { label: "(b) Speed and Horsepower", key: "fan_motor_speed_hp" }
+      ];
+
+      fanMotorDetails.forEach((field) => {
+          checkPageSpace(10);
+          doc.setFont("times", "bold");
+          doc.text(field.label, 25, y);
+          doc.setFont("times", "normal");
+          doc.text(formData[field.key] || "N/A", 100, y);
+          y += 8;
+      });
+
+      checkPageSpace(15);
+
+      // ✅ Section 8: Defects Observed
+      doc.setFont("times", "bold");
+      doc.text("8. Particulars of Defects Observed:", 20, y);
+      doc.setFont("times", "normal");
+      doc.text(formData["defects_observed"] || "N/A", 100, y);
+      y += 15;
+
+      checkPageSpace(30);
+
+      // ✅ Certification Section
+      doc.setFont("times", "italic");
+      doc.setFontSize(11);
+      doc.setTextColor(50);
+      doc.text("I, certify that on this ………………….. day of ……………the above dust/fume extraction system was thoroughly", 20, y);
+      doc.text("examined.I further certify that on said date, I examined the system, and this is a true report of my examination", 20, y + 6);
+
+      y += 30;
+      doc.setTextColor(0, 0, 0);
+      doc.setFont("times", "normal");
+      doc.text("Signature        : ", 140, y);
+      y+=10;
+      doc.text("Qualification  : ", 140, y);
+
+      y += 10;
+      doc.setFont("times", "normal");
+      doc.text("Address          : ", 140, y);
+      y += 10;
+      doc.text("Date               : ", 140, y);
+      y += 10;
+      doc.text("If employed by a company or association give name and address.", 20, y + 6);
+    }
+  else if (form.id ==2) {
+    // ✅ Define Table Structure
+      let startX = 20;
+      let startY = y;
+      let cellWidth = [15, 15, 15, 15, 15, 15, 55, 55, 55, 45, 55, 45, 40, 45, 40];
+      let rowHeight = 12; // Row height
+
+      // ✅ Headers as in the provided document
+      let headers = [
+        "Serial number",
+        "Date & time of notice",
+        "Name & serial number of person involved \n in the register of adult/child register",
+        "ESIC Insurance number",
+        "Date",
+        "Time",
+        "Place",
+        "Cause of accident/major \n accident/dangerous occurrence",
+        "Nature of injury/dangerous occurrence",
+        "What exactly was the injured person \n doing at the time?",
+        "Name of the person giving the notice",
+        "Name, address, and occupation of two witnesses",
+        "Date of return of injured person to work",
+        "Number of days the injured person was absent \n from the work including holidays and off days",
+        "Signature and designation of the person \n who makes the entry with date"
+    ];
+    
+
+      // ✅ Table Data
+      let rowData = [
+          [
+              "1",
+              formData["date_time_notice"] || "N/A",
+              formData["time"] || "N/A",
+              formData["place"] || "N/A",
+              formData["person_involved"] || "N/A",
+              formData["esic_insurance_no"] || "N/A",
+              formData["cause_of_accident"] || "N/A",
+              formData["nature_of_injury"] || "N/A",
+              formData["injured_person_activity"] || "N/A",
+              formData["person_giving_notice"] || "N/A",
+              formData["witnesses"] || "N/A",
+              formData["return_to_work_date"] || "N/A",
+              formData["days_absent"] || "N/A",
+              formData["entry_signature"] || "N/A",
+              formData["entry_date"] || "N/A",
+          ],
+      ];
+
+      // ✅ Draw Table Headers
+      doc.setFont("times", "bold");
+      doc.setFontSize(9);
+      let x = startX;
+      // Merge "Injury/Dangerous Occurrence" header over 2 columns
+      let mergedStartX = startX + cellWidth.slice(0, 6).reduce((a, b) => a + b, 0);
+      let mergedWidth = cellWidth.slice(6, 8).reduce((a, b) => a + b, 0);
+
+      doc.rect(mergedStartX, startY, mergedWidth, rowHeight); 
+      doc.setFontSize(10);
+      doc.text("Injury/Dangerous Occurrence", mergedStartX + 2, startY + 5);
+
+
+      // **Rotate Text for Vertical Headers**
+      headers.forEach((header, i) => {
+        doc.rect(x, startY, cellWidth[i], rowHeight * 2); 
+        let splitHeader = doc.splitTextToSize(header, cellWidth[i] - 4);
+    
+        // Adjust text placement (manually set y-offset for vertical text)
+        let headerX = x + 2;
+        let headerY = startY + 6;
+    
+        // Split Text for multi-line display
+        splitHeader.forEach((line, index) => {
+            doc.text(line, headerX, headerY + (index * 4)); 
+        });
+    
+        x += cellWidth[i]; 
+    });
+    
+
+      // ✅ Merge "Injury/Dangerous Occurrence" Over Two Columns
+      doc.rect(startX + cellWidth.slice(0, 6).reduce((a, b) => a + b, 0), startY, cellWidth.slice(6, 8).reduce((a, b) => a + b, 0), rowHeight);
+
+      // ✅ Insert "Injury/Dangerous Occurrence" Header in the Merged Cell
+      doc.setFontSize(10);
+      doc.text("Injury/Dangerous Occurrence", startX + cellWidth.slice(0, 6).reduce((a, b) => a + b, 0) + 2, startY + 5);
+
+      // ✅ Draw Table Rows
+      doc.setFont("times", "normal");
+      doc.setFontSize(9);
+      let rowY = startY + rowHeight * 2; // Start row after headers
+
+      rowData.forEach((row) => {
+          x = startX;
+          row.forEach((cell, i) => {
+              doc.rect(x, rowY, cellWidth[i], rowHeight); // Draw Cell
+              doc.text(String(cell), x + 2, rowY + 6); // Align Text
+              x += cellWidth[i];
+          });
+          rowY += rowHeight;
+      });
+
+
+  }
+
+  // ✅ Save PDF
   doc.save(fileName);
-  alert("📥 PDF Downloaded Successfully!");
+  alert("📥 Dust & Fume Report Downloaded Successfully!");
 };
+
 
 
   return (

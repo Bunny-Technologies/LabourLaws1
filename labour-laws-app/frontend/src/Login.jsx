@@ -35,19 +35,19 @@ const Login = ({ setIsAuthenticated }) => {
     }
   };
 
-  
-
   return (
-    <div className="login-wrapper">
+    <div className="login-box-wrapper">
       <div className="login-container">
-        {/* Government Logo */}
+        {/* Government Header with Logo */}
         <img 
           src="https://thumbs.dreamstime.com/b/labor-laws-text-violet-indigo-round-grungy-stamp-labor-laws-text-violet-indigo-round-grungy-texture-stamp-244040401.jpg" 
           alt="Government Logo" 
+          width="80px"
           className="login-logo"
+          style={{ marginBottom: "15px" }}
         />
         <h2>Government Labour Law Portal</h2>
-
+        
         {/* Login Form */}
         <form onSubmit={handleLogin}>
           <input
@@ -71,9 +71,6 @@ const Login = ({ setIsAuthenticated }) => {
           </button>
           {error && <p className="error-message">{error}</p>}
         </form>
-
-        {/* Forgot Password & Signup Links */}
-
       </div>
     </div>
   );
