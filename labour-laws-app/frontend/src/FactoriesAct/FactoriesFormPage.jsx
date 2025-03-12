@@ -359,7 +359,7 @@ switch (form.id) {
   doc.setFont("times", "normal");
 
   // ✅ Section 1: General Details
-  if (form.id === 1) {
+  if (form.id == 1) {
       doc.setFont("times", "bold");
       doc.text("1. Description of System:", 20, y);
       doc.setFont("times", "normal");
@@ -514,113 +514,289 @@ switch (form.id) {
       y += 10;
       doc.text("If employed by a company or association give name and address.", 20, y + 6);
     }
+  
   else if (form.id ==2) {
-    // ✅ Define Table Structure
-      let startX = 20;
-      let startY = y;
-      let cellWidth = [15, 15, 15, 15, 15, 15, 55, 55, 55, 45, 55, 45, 40, 45, 40];
-      let rowHeight = 12; // Row height
+      // ✅ Define Table Structure
+        let startX = 20;
+        let startY = y+5;
+        let cellWidth = [10, 10, 20, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 20, 25]; // Adjusted Column widths
+        let rowHeight = 40; // Row height
 
-      // ✅ Headers as in the provided document
-      let headers = [
-        "Serial number",
-        "Date & time of notice",
-        "Name & serial number of person involved \n in the register of adult/child register",
-        "ESIC Insurance number",
-        "Date",
-        "Time",
-        "Place",
-        "Cause of accident/major \n accident/dangerous occurrence",
-        "Nature of injury/dangerous occurrence",
-        "What exactly was the injured person \n doing at the time?",
-        "Name of the person giving the notice",
-        "Name, address, and occupation of two witnesses",
-        "Date of return of injured person to work",
-        "Number of days the injured person was absent \n from the work including holidays and off days",
-        "Signature and designation of the person \n who makes the entry with date"
-    ];
-    
+        // ✅ Headers as in the provided document
+        let headers = [
+            "Serial Number",
+            "Date & Time of Notice",
+            "Name & Serial Number of the Person\nInvolved in  the register of \n adult/child register",
+            "ESIC Insurance number.",
+            "Date",
+            "Time",
+            "Place",
+            "Cause of Accident / Major \nAccident / Dangerous Occurrence",
+            "Nature of Injury / Dangerous Occurrence",
+            "What exactly was the injured person,\nif any doing at that notice",
+            "Name of Person Giving Notice",
+            "Name, Address & \n Occupation of Two Witnesses",
+            "Date of Return of Injured Person",
+            "Number of days the injured person was absent\n from the work including holidays and off days",
+            "Signature & Designation of Entry Maker"
+        ];
 
-      // ✅ Table Data
-      let rowData = [
-          [
-              "1",
-              formData["date_time_notice"] || "N/A",
-              formData["time"] || "N/A",
-              formData["place"] || "N/A",
-              formData["person_involved"] || "N/A",
-              formData["esic_insurance_no"] || "N/A",
-              formData["cause_of_accident"] || "N/A",
-              formData["nature_of_injury"] || "N/A",
-              formData["injured_person_activity"] || "N/A",
-              formData["person_giving_notice"] || "N/A",
-              formData["witnesses"] || "N/A",
-              formData["return_to_work_date"] || "N/A",
-              formData["days_absent"] || "N/A",
-              formData["entry_signature"] || "N/A",
-              formData["entry_date"] || "N/A",
-          ],
-      ];
+        // ✅ Table Data
+        let rowData = [
+            [
+                formData["serial_number"] || "N/A",
+                formData["date_time_of_notice"] || "N/A",
+                formData["person_name"] || "N/A",
+                formData["esic_insurance_number"] || "N/A",
+                formData["date"] || "N/A",
+                formData["time"] || "N/A",
+                formData["place"] || "N/A",
+                formData["cause_of_accident"] || "N/A",
+                formData["nature_of_injury"] || "N/A",
+                formData["injured_person_action"] || "N/A",
+                formData["notice_given_by"] || "N/A",
+                formData["witness_name"] || "N/A",
+                formData["return_date"] || "N/A",
+                formData["days_absent"] || "N/A",
+                formData["person_signature"] || "N/A",
+            ],
+        ];
 
-      // ✅ Draw Table Headers
-      doc.setFont("times", "bold");
-      doc.setFontSize(9);
-      let x = startX;
-      // Merge "Injury/Dangerous Occurrence" header over 2 columns
-      let mergedStartX = startX + cellWidth.slice(0, 6).reduce((a, b) => a + b, 0);
-      let mergedWidth = cellWidth.slice(6, 8).reduce((a, b) => a + b, 0);
+        // ✅ Draw Table Headers
+        doc.setFont("times", "bold");
+        doc.setFontSize(9);
+        let x = startX;
 
-      doc.rect(mergedStartX, startY, mergedWidth, rowHeight); 
-      doc.setFontSize(10);
-      doc.text("Injury/Dangerous Occurrence", mergedStartX + 2, startY + 5);
+        // **Rotate Text for Vertical Headers**
+        headers.forEach((header, i) => {
+            doc.rect(x, startY, cellWidth[i], rowHeight * 2); // Draw Header Cell
+            doc.saveGraphicsState();
+            doc.saveGraphicsState();
+            doc.saveGraphicsState();
+            doc.setFontSize(9);
+            doc.setTextColor(0, 0, 0);
+
+            // Rotate Text Manually
+            doc.context2d.save();
+            doc.context2d.translate(x + cellWidth[i] / 2, startY + rowHeight *1.9);
+            doc.context2d.rotate(-Math.PI / 2);
+            doc.context2d.fillText(header, 0, 0);
+            doc.context2d.restore();
+
+            doc.restoreGraphicsState();
 
 
-      // **Rotate Text for Vertical Headers**
-      headers.forEach((header, i) => {
-        doc.rect(x, startY, cellWidth[i], rowHeight * 2); 
-        let splitHeader = doc.splitTextToSize(header, cellWidth[i] - 4);
-    
-        // Adjust text placement (manually set y-offset for vertical text)
-        let headerX = x + 2;
-        let headerY = startY + 6;
-    
-        // Split Text for multi-line display
-        splitHeader.forEach((line, index) => {
-            doc.text(line, headerX, headerY + (index * 4)); 
+            x += cellWidth[i];
         });
-    
-        x += cellWidth[i]; 
-    });
-    
 
-      // ✅ Merge "Injury/Dangerous Occurrence" Over Two Columns
-      doc.rect(startX + cellWidth.slice(0, 6).reduce((a, b) => a + b, 0), startY, cellWidth.slice(6, 8).reduce((a, b) => a + b, 0), rowHeight);
+        // ✅ Insert "Injury/Dangerous Occurrence" header in the merged cell
+        doc.setFontSize(10);
+        doc.text("Injury/Dangerous Occurrence", 
+          startX + cellWidth.slice(0, 6).reduce((a, b) => a + b, 0) + 2, 
+          startY + 5); // Adjusted position for better alignment
+ 
 
-      // ✅ Insert "Injury/Dangerous Occurrence" Header in the Merged Cell
-      doc.setFontSize(10);
-      doc.text("Injury/Dangerous Occurrence", startX + cellWidth.slice(0, 6).reduce((a, b) => a + b, 0) + 2, startY + 5);
+        // ✅ Draw the horizontal line below the "Injury/Dangerous Occurrence" header
+        let headerLineY = startY + rowHeight - 30; // Position for the horizontal line just below the header text
+        doc.setLineWidth(0.01); // Optional: set line width for the horizontal line
+        doc.line(
+          startX + cellWidth.slice(0, 6).reduce((a, b) => a + b, 0) + cellWidth.slice(6, 6).reduce((a, b) => a + b, 0), // X start position for column 7
+          headerLineY, 
+          startX + cellWidth.slice(0, 6).reduce((a, b) => a + b, 0) + cellWidth.slice(6, 11).reduce((a, b) => a + b, 0), // X end position for column 11
+          headerLineY
+      );
 
       // ✅ Draw Table Rows
-      doc.setFont("times", "normal");
-      doc.setFontSize(9);
+      doc.setFont("times", "normal");  // Set normal font for data cells
+      doc.setFontSize(9);  // Set font size to 9 for data cells
       let rowY = startY + rowHeight * 2; // Start row after headers
 
       rowData.forEach((row) => {
-          x = startX;
-          row.forEach((cell, i) => {
-              doc.rect(x, rowY, cellWidth[i], rowHeight); // Draw Cell
-              doc.text(String(cell), x + 2, rowY + 6); // Align Text
-              x += cellWidth[i];
-          });
-          rowY += rowHeight;
-      });
+        x = startX;
+        row.forEach((cell, i) => {
+            // Set line width to a very thin value to keep borders without boldness
+            doc.setLineWidth(0.05); // Thin line for borders, adjust as necessary
+            doc.rect(x, rowY, cellWidth[i], rowHeight); // Draw cell border
+    
+            // Rotate text in data cells
+            doc.setFont("times", "normal");
+            doc.setFontSize(9); 
+            doc.context2d.save();
+            doc.context2d.translate(x + cellWidth[i] / 2, rowY + rowHeight / 2);
+            doc.context2d.rotate(-Math.PI / 2);
+            doc.context2d.fillText(String(cell), 0, 0);
+            doc.context2d.restore();
+    
+            x += cellWidth[i];
+        });
+        rowY += rowHeight;
+    });
+    
+    }
 
 
+  else if (form.id == 3) {
+   
+    //y += 1;
+    doc.setFontSize(11);
+    doc.text("(TO BE ISSUED BY FACTORY MEDICAL OFFICER)", 105, y, null, null, "center");
+
+    y += 15;
+    doc.setFont("times", "normal");
+    doc.text("1. Serial number in the register of adult workers:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["serial_number_in_register"] || "N/A", 120, y);
+
+    y += 8;
+    doc.setFont("times", "normal");
+    doc.text("2. Name of the person examined:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["worker_name"] || "N/A", 120, y);
+
+    y += 8;
+    doc.setFont("times", "normal");
+    doc.text("3. Father’s Name:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["father_name"] || "N/A", 120, y);
+
+    y += 8;
+    doc.setFont("times", "normal");
+    doc.text("4. Sex:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["sex"] || "N/A", 120, y);
+
+    y += 8;
+    doc.setFont("times", "normal");
+    doc.text("5. Residence:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["residence"] || "N/A", 120, y);
+
+    y += 8;
+    doc.setFont("times", "normal");
+    doc.text("6. Date of birth (if available):", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["date_of_birth"] || "N/A", 120, y);
+
+    y += 8;
+    doc.setFont("times", "normal");
+    doc.text("7. Name & address of the factory:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["factory_name"] + ", " + formData["factory_address"] || "N/A", 120, y);
+
+    y += 8;
+    doc.setFont("times", "normal");
+    doc.text("8. The worker is employed/proposed:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["employment_status"] || "N/A", 120, y);
+
+    y += 8;
+    doc.setFont("times", "normal");
+    doc.text("(a) Hazardous process:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["hazardous_process"] || "N/A", 120, y);
+
+    y += 8;
+    doc.setFont("times", "normal");
+    doc.text("(b) Dangerous operation:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["dangerous_operation"] || "N/A", 120, y);
+
+    y += 15;
+    doc.setFont("times", "normal");
+    doc.text("I certify that I have personally examined the above-named person whose identification marks ", 30, y);
+    y += 6;
+    doc.text("are ......... and who is desirous of being employed in the above-mentioned process/operation and that his,", 20, y);
+    y += 6;
+    doc.text("/her age as can be ascertained from my examination, is …………… years.", 20, y);
+
+    y += 15;
+    doc.setFont("times", "normal");
+    doc.text("In my opinion he/she is fit for employment in the said manufacturing process/operation.", 30, y);
+
+    y += 10;
+    doc.text("In my opinion he/she is unfit for employment in the said manufacturing process/operation for ", 30, y);
+    y += 6;
+    doc.text("the reason ...........He/She is referred for further examination to the Certifying Surgeon.", 20, y);
+
+    y += 10;
+    doc.setFont("times", "normal");
+    doc.text("The serial number of previous certificate is:", 20, y);
+    doc.setFont("times", "normal");
+    doc.text(formData["previous_certificate_number"] || "N/A", 120, y);
+
+    y += 15;
+    doc.setFont("times", "normal");
+    doc.text("Signature or left-hand thumb\n impression of the person examined:", 20, y);
+    doc.text("Signature of the Factory Medical Officer:", 100, y);
+
+    y += 20;
+    doc.text("Stamp of Factory\n Medical Officer with:", 140, y);
+    
+    y+= 15;
+    doc.text("Name of the Factory:",140,y);
+
+    y += 20;
+
+    // 🟢 Check for page overflow before drawing the table
+    if (y + 30 > doc.internal.pageSize.height - 20) {
+        doc.addPage();
+        y = 20;
+    }
+
+    // 🟢 Draw Table for Certification Section with Proper Alignment
+    let startX = 20;
+    let rowHeight = 20;
+    let colWidths = [35, 45, 35, 35];
+
+    let headers = [
+        "I certify that I examined the person mentioned above on (date of examination)",
+        "I extend this certificate unfit (if certificate is not extended, the period for which the worker is considered unfit for work is to be mentioned)",
+        "Signs and symptoms observed during examination",
+        "Signature of the Factory Medical Officer with date"
+    ];
+
+    let headerY = y;
+    let x = startX;
+    headers.forEach((header, index) => {
+        doc.rect(x, headerY, colWidths[index], rowHeight * 2);
+        doc.text(doc.splitTextToSize(header, colWidths[index] - 5), x + 2, headerY + 5);
+        x += colWidths[index];
+    });
+
+    y += rowHeight * 2;
+    let rowY = y;
+    let values = [
+        formData["examination_date"] || "N/A",
+        formData["certificate_extension"] || "N/A",
+        formData["symptoms_observed"] || "N/A",
+        formData["medical_officer_final_signature"] || "N/A"
+    ];
+
+    x = startX;
+    values.forEach((value, index) => {
+        doc.rect(x, rowY, colWidths[index], rowHeight);
+        doc.text(doc.splitTextToSize(value, colWidths[index] - 5), x + 2, rowY + 6);
+        x += colWidths[index];
+    });
+
+    y += rowHeight * 2 - 15;
+
+    // 🟢 Check for page overflow before adding notes
+    //if (y + 20 > doc.internal.pageSize.height - 20) {
+        //doc.addPage();
+        //y = 20;
+    //}
+
+    // 🟢 Notes Section
+    doc.text("Notes:", 20, y);
+    y += 5;
+    doc.text("1. If declared unfit, reference should be made immediately to the Certifying Surgeon.", 30, y);
+    y += 5;
+    doc.text("2. Certifying Surgeon should communicate his findings to the occupier within 30 days of the receipt\n of this reference.", 30, y);
   }
-
-  // ✅ Save PDF
+     // ✅ Save PDF
   doc.save(fileName);
-  alert("📥 Dust & Fume Report Downloaded Successfully!");
+  alert("📥 Form Downloaded Successfully!");
 };
 
 
